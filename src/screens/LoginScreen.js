@@ -1,26 +1,41 @@
 import { useState } from "react";
 import { Alert, Button, Text, TextInput } from "react-native";
+import { app } from '../../firebaseConfig';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import loginstyles from './loginstyles'
 
 export default function LoginScreen() {
 
-    const [username, setUsername] = useState('')
+    const [email, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const loginFunction = () => {
+    const loginFunction = async () => {
         //Do firebase and auth stuff here
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            console.log('User signed in: ', user);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error(`${errorCode}: `, errorMessage);
+            alert('Sign in failed: ' + error.message);
+          });
     }
 
     return (
         <>
             <Text>Login:</Text>
             <TextInput
-                placeholder="Enter Username"
-                value={username}
+                placeholder="Enter Email"
+                value={email}
                 onChangeText={(x) => setUsername(x)}
             />
             <TextInput
                 placeholder="Enter Password"
+                secureTextEntry={true}
                 value={password}
                 onChangeText={(x) => setPassword(x)}
             />

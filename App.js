@@ -3,6 +3,7 @@ import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import './firebaseConfig';
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import Navigator from './src/routes/homeStack';
+import React, { useState } from 'react';
 
 import {
   LoginScreen,
