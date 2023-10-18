@@ -1,12 +1,13 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
+//import screens here
 
 const screens = {
     Home: {
-        screen: 
+        screen: //home screen
     },
     LogIn: {
-        screen: 
+        screen: //login screen
     }
 }
 
