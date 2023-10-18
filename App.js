@@ -3,7 +3,10 @@ import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import './firebaseConfig';
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 
+import {
+  LoginScreen,
 
+} from './src/screens'
 
 
 function register(email, password) {
