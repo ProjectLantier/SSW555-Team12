@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Alert, Button, Text, TextInput } from "react-native";
+import loginstyles from './loginstyles'
 
 export default function LoginScreen() {
 
