@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TextInput, View, Button } from "react-native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-const Register = () => {
+const RegisterScreen = ({ navigation }) => {
   function registerUser(email, password) {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
@@ -47,6 +47,11 @@ const Register = () => {
         onChangeText={(val) => setPassword(val)}
       />
       <Button title="Sign Up" onPress={() => registerUser(email, password)} />
+      <Text>Already have an account?</Text>
+      <Button
+        title="Login"
+        onPress={() => navigation.navigate("LoginScreen")}
+      />
     </View>
   );
 };
@@ -60,4 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Register;
+export default RegisterScreen;

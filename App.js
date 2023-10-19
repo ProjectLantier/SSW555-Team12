@@ -2,30 +2,31 @@ import "./firebaseConfig";
 import Navigator from "./src/routes/homeStack";
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { LoginScreen } from "./src/screens";
-import Register from "./src/screens/Register";
-import Profile from "./src/screens/Profile";
+import { createStackNavigator } from "@react-navigation/stack";
+import RegisterScreen from "./src/screens/RegisterScreen";
+import ProfileScreen from "./src/screens/ProfileScreen";
+import HomeScreen from "./src/screens/HomeScreen";
+import LoginScreen from "./src/screens/LoginScreen";
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const getFonts = () => Font.loadAsync({});
 
 const App = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
-  if (fontsLoaded) {
-    return <Navigator />;
-  } else {
-    return (
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="Home" component={Register} />
-          <Tab.Screen name="Profile" component={Profile} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    );
-  }
+  // if (fontsLoaded) {
+  //   return <Navigator />;
+  // } else {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+  // }
 };
 
 export default App;

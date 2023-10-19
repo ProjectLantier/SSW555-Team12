@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { Alert, Button, Text, TextInput } from "react-native";
+import { Alert, Button, Text, TextInput, SafeAreaView } from "react-native";
 import { app } from "../../firebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import loginstyles from "./loginstyles";
 
-const Login = () => {
+const LoginScreen = () => {
   const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -26,22 +26,24 @@ const Login = () => {
   };
 
   return (
-    <>
-      <Text>Login:</Text>
+    <SafeAreaView style={loginstyles.container}>
+      <Text style={loginstyles.title}>Login:</Text>
       <TextInput
         placeholder="Enter Email"
         value={email}
         onChangeText={(x) => setUsername(x)}
+        style={loginstyles.input}
       />
       <TextInput
         placeholder="Enter Password"
         secureTextEntry={true}
         value={password}
         onChangeText={(x) => setPassword(x)}
+        style={loginstyles.input}
       />
       <Button title="Log in" onPress={loginFunction} />
-    </>
+    </SafeAreaView>
   );
 };
 
-export default Login;
+export default LoginScreen;
