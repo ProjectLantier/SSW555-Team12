@@ -4,7 +4,7 @@ import RegistrationStyle from '../styles/RegistrationStyle';
 import {createUserWithEmailAndPassword} from 'firebase/auth';
 
 
-export default function Registration(){
+const RegisterScreen = ({ navigation }) => {
     function register(email, password) {
         const auth =  getAuth();
         createUserWithEmailAndPassword(auth, email, password)
@@ -58,6 +58,15 @@ export default function Registration(){
                 buttonStyle={RegistrationStyle.button}
                 textStyle={RegistrationStyle.buttonTitle}
             />
+
+            <Text>Already have an account?</Text>
+            <Button
+              title="Login"
+              onPress={() => navigation.navigate("LoginScreen")}
+            />
+
         </View>
       )
-}
+};
+
+export default RegisterScreen;
