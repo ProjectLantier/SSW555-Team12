@@ -1,10 +1,18 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, TextInput, View, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import RegistrationStyle from "../styles/RegistrationStyle";
 
 const RegisterScreen = ({ navigation }) => {
-  function registerUser(email, password) {
+  function register(email, password) {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -21,6 +29,12 @@ const RegisterScreen = ({ navigation }) => {
       });
   }
 
+  const MyButton = ({ title, onPress, buttonStyle, textStyle }) => (
+    <TouchableOpacity style={buttonStyle} onPress={onPress}>
+      <Text style={textStyle}>{title}</Text>
+    </TouchableOpacity>
+  );
+
   let email = "";
   let password = "";
 
@@ -32,21 +46,27 @@ const RegisterScreen = ({ navigation }) => {
     password = val;
   }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={RegistrationStyle.container}>
+      <Text style={RegistrationStyle.title}>Welcome to our app!</Text>
+      {/* <StatusBar/> */}
       <TextInput
-        style={styles.input}
+        style={RegistrationStyle.input}
         placeholder="Email"
         onChangeText={(val) => setEmail(val)}
       />
       <TextInput
-        style={styles.input}
+        style={RegistrationStyle.input}
         placeholder="Password"
         secureTextEntry={true}
         onChangeText={(val) => setPassword(val)}
       />
-      <Button title="Sign Up" onPress={() => registerUser(email, password)} />
+      <MyButton
+        title="Sign Up"
+        onPress={() => register(email, password)}
+        buttonStyle={RegistrationStyle.button}
+        textStyle={RegistrationStyle.buttonTitle}
+      />
+
       <Text>Already have an account?</Text>
       <Button
         title="Login"
