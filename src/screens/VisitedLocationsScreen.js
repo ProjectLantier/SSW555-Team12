@@ -6,6 +6,13 @@ const VisitedLocationsScreen = () => {
     <SafeAreaView>
       <View>
         <Text>Visited Locations</Text>
+        <Text style={styles.profileSectionDetails}>
+          Tap to see more about this place!
+          <TouchableOpacity
+            style={styles.profileSection}
+            onPress={() => "more deets"}
+        ></TouchableOpacity>
+        </Text>
       </View>
     </SafeAreaView>
   );
