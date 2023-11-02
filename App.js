@@ -7,6 +7,8 @@ import RegisterScreen from "./src/screens/RegisterScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import LoginScreen from "./src/screens/LoginScreen";
+import BadgeCollectionScreen from "./src/screens/BadgeCollectionScreen";
+import VisitedLocationsScreen from "./src/screens/VisitedLocationsScreen";
 
 const Stack = createStackNavigator();
 
@@ -23,6 +25,14 @@ const App = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen
+          name="BadgeCollectionScreen"
+          component={BadgeCollectionScreen}
+        />
+        <Stack.Screen
+          name="VisitedLocationsScreen"
+          component={VisitedLocationsScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
