@@ -44,6 +44,7 @@ export default StyleSheet.create({
     padding: 10,
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: 30,
   },
   buttonTitle: {
     color: "white",
