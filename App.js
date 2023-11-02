@@ -1,14 +1,28 @@
+<<<<<<< HEAD
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import './firebaseConfig';
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import Navigator from './src/routes/homeStack';
+=======
+import "./firebaseConfig";
+import Navigator from "./src/routes/homeStack";
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import RegisterScreen from "./src/screens/RegisterScreen";
+import ProfileScreen from "./src/screens/ProfileScreen";
+import HomeScreen from "./src/screens/HomeScreen";
+import LoginScreen from "./src/screens/LoginScreen";
+import BadgeCollectionScreen from "./src/screens/BadgeCollectionScreen";
+import VisitedLocationsScreen from "./src/screens/VisitedLocationsScreen";
+>>>>>>> main
 
-import {
-  LoginScreen,
+const Stack = createStackNavigator();
 
-} from './src/screens'
+const getFonts = () => Font.loadAsync({});
 
+<<<<<<< HEAD
 const getFonts = () => Font.loadAsync({
 
 })
@@ -72,12 +86,31 @@ export default function App() {
     );
   }
 }
+=======
+const App = () => {
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  // if (fontsLoaded) {
+  //   return <Navigator />;
+  // } else {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen
+          name="BadgeCollectionScreen"
+          component={BadgeCollectionScreen}
+        />
+        <Stack.Screen
+          name="VisitedLocationsScreen"
+          component={VisitedLocationsScreen}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+  // }
+};
+>>>>>>> main
+
+export default App;
