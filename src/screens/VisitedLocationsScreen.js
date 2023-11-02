@@ -9,7 +9,7 @@ const VisitedLocationsScreen = ({ navigation }) => {
     { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant", description: "that nice place down the block" },
     { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant", description: "that nice place down the block" },
     { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant", description: "that nice place down the block" },
-    { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant", description: "that nice place down the block" }
+    { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant", description: "that nice place down the block" },
   ]
 
   return (
