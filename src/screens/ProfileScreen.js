@@ -4,7 +4,6 @@ import {
   View,
   SafeAreaView,
   StyleSheet,
-  Button,
   TouchableOpacity,
 } from "react-native";
 import Icon from "@expo/vector-icons/AntDesign";
