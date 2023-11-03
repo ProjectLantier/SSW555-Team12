@@ -17,5 +17,15 @@ jobs:
         node-version: '12'
     - name: Install Dependencies
       run: npm install
+    - name: Install CocoaPods
+      run: sudo gem install cocoapods
+    - name: Install Pods
+      run: |
+        if [ -d "ios" ]; then
+          cd ios
+          pod install
+        fi
     - name: Start Expo
-      run: npx expo start --non-interactive
+      run: CI=1 npx expo start --non-interactive
+      env:
+        CI: true
