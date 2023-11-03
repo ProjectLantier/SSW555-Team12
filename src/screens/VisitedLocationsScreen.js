@@ -4,12 +4,12 @@ import { SafeAreaView, ScrollView, View, Text, Button, StyleSheet } from "react-
 const VisitedLocationsScreen = ({ navigation }) => {
 
   const dummyData = [
-    { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant" },
-    { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant" },
-    { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant" },
-    { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant" },
-    { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant" },
-    { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant" },
+    { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant", description: "that nice place down the block" },
+    { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant", description: "that nice place down the block" },
+    { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant", description: "that nice place down the block" },
+    { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant", description: "that nice place down the block" },
+    { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant", description: "that nice place down the block" },
+    { name: "abc", latitude: 123, longitude: 456, address: "123 main street", type: "resturant", description: "that nice place down the block" },
   ]
 
   return (
@@ -29,6 +29,12 @@ const VisitedLocationsScreen = ({ navigation }) => {
             <Text style={styles.cardText}>Longitude: {location.longitude}</Text>
             <Text style={styles.cardText}>Address: {location.address}</Text>
             <Text style={styles.cardText}>Type: {location.type}</Text>
+            <TouchableOpacity
+              key={location.name}
+              onPress={() =>
+                navigation.navigate("VisitedLocationDetailsScreen", { location })
+              }
+            ></TouchableOpacity>
           </View>
         ))}
       </ScrollView>
