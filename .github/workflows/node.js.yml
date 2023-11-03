@@ -11,7 +11,7 @@ on:
 jobs:
   ios-build:
     name: iOS Dev Build
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Show self-hosted machine infomation
         run: uname -a
@@ -51,7 +51,7 @@ jobs:
           bundle exec fastlane build_testflight
   android-build:
     name: Android Dev Build
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Show self-hosted machine infomation
         run: uname -a
