@@ -20,7 +20,7 @@ jobs:
       - name: Checkout repo from dev branch
         uses: actions/checkout@v3
         with:
-          ref: dev
+          ref: main
       - name: Install npm dependency
         run: yarn install
       - name: Cache cocoapods
@@ -60,7 +60,7 @@ jobs:
       - name: Checkout repo from dev branch
         uses: actions/checkout@v3
         with:
-          ref: dev
+          ref: main
       - name: Install npm dependency
         run: yarn install
       - name: Setup Android SDK
