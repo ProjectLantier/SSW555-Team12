@@ -42,6 +42,7 @@ const BadgeCollectionScreen = ({ navigation }) => {
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.container}>
         <Text style={styles.heading}>Badges</Text>
+        <Text>Adventurer Level: badges.length</Text>
       </View>
       <View style={styles.badges}>
         {badges.map((badge) => {
