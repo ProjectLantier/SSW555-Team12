@@ -1,8 +1,9 @@
 import React from "react";
 import { SafeAreaView, View, Text, StyleSheet } from "react-native";
 
-const VisitedLocationDetailsScreen = ({ location }) => {
+const VisitedLocationDetailsScreen = ({ route }) => {
   //take advantage of dummy info on location screen instead
+  const { location } = route.params;
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.container}>
@@ -37,4 +38,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BadgeDetailsScreen;
+export default VisitedLocationDetailsScreen;
