@@ -27,3 +27,6 @@ Once you have cloned the repository and installed the necessary dependencies, yo
 
 - npm start
 This command will start the project, and you should be able to access it in your web browser.
+
+[![ProjectLantier](https://circleci.com/gh/ProjectLantier/SSW555-Team12.svg?style=svg)](https://app.circleci.com/pipelines/github/ProjectLantier/SSW555-Team12?branch=main&filter=all)
+
