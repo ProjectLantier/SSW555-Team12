@@ -1,12 +1,4 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "modules": "commonjs"
-      }
-    ],
-    "module:metro-react-native-babel-preset"
-  ],
-  "plugins": ["module:react-native-dotenv"]
+	"presets": ["module:metro-react-native-babel-preset"],
+	"plugins": ["module:react-native-dotenv"]
 }
