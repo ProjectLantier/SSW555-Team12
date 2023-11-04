@@ -33,6 +33,5 @@
   },
   "jest": {
     "testRegex": "TestLeaderboardsScreen.test.js"
-  },
   "private": true
 }
