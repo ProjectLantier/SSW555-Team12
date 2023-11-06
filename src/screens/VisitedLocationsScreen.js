@@ -3,6 +3,8 @@ import {
   SafeAreaView,
   ScrollView,
   View,
+} from "react-native";
+import {
   Text,
   Button,
   StyleSheet,
@@ -61,13 +63,17 @@ const VisitedLocationsScreen = ({ navigation }) => {
     },
   ];
 
+  const goBack = () => {
+    navigation.goBack();
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.header}>
-        <Button title="Back" onPress={() => navigation.goBack()} />
+        <Button title="Back" onPress={goBack} />
         <Text style={styles.headerText}>Visited Locations</Text>
       </View>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={styles.y}>
         {locations.map((location, index) => (
           <TouchableOpacity
             key={index.toString()}
@@ -76,11 +82,11 @@ const VisitedLocationsScreen = ({ navigation }) => {
               navigation.navigate("VisitedLocationDetailsScreen", { location })
             }
           >
-            <Text style={styles.cardText}>Name: {location.name}</Text>
-            <Text style={styles.cardText}>Latitude: {location.latitude}</Text>
-            <Text style={styles.cardText}>Longitude: {location.longitude}</Text>
-            <Text style={styles.cardText}>Address: {location.address}</Text>
-            <Text style={styles.cardText}>Type: {location.type}</Text>
+            <Text style={styles.x}>Name: {location.name}</Text>
+            <Text style={styles.x}>Latitude: {location.latitude}</Text>
+            <Text style={styles.x}>Longitude: {location.longitude}</Text>
+            <Text style={styles.x}>Address: {location.address}</Text>
+            <Text style={styles.x}>Type: {location.type}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -105,7 +111,7 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: "center",
   },
-  scrollView: {
+  y: {
     width: "100%",
     marginTop: 20,
   },
@@ -127,8 +133,12 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  cardText: {
+  x: {
     fontSize: 16,
+  },
+  cardBack: {
+    marginVertical: 10,
+    marginHorizontal: 20
   },
 });
 
