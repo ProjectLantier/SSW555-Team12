@@ -1,7 +1,8 @@
 import React from "react";
 import { SafeAreaView, View, Text, StyleSheet } from "react-native";
 
-const BadgeDetailsScreen = ({ route }) => {
+//bad smell: unused parameter
+const BadgeDetailsScreen = ({ route, name }) => {
   const { badge } = route.params;
   //dummy info for now
   return (
@@ -16,6 +17,7 @@ const BadgeDetailsScreen = ({ route }) => {
   );
 };
 
+//bad smell: duplicate code from visited locations screen
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
