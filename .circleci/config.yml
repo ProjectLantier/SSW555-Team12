@@ -16,7 +16,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: npm test TestLeaderboardsScreen.test.js
+          command: npm test
 
 workflows:
   version: 2
