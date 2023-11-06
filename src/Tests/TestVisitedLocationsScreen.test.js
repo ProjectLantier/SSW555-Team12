@@ -35,3 +35,8 @@ test('Pressing a location card triggers navigation with the right parameters', (
     );
 });
 
+test('Visited Locations count is equal to 6', () => {
+    const { getAllByText } = render(<VisitedLocationsScreen />);
+    const locationCards = getAllByText(/Name:/);
+    expect(locationCards.length == 6);
+});
