@@ -67,7 +67,7 @@ const VisitedLocationsScreen = ({ navigation }) => {
         <Button title="Back" onPress={() => navigation.goBack()} />
         <Text style={styles.headerText}>Visited Locations</Text>
       </View>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={styles.ScrollView}>
         {locations.map((location, index) => (
           <TouchableOpacity
             key={index.toString()}
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: "center",
   },
-  scrollView: {
+  ScrollView: {
     width: "100%",
     marginTop: 20,
   },
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   },
   cardText: {
     fontSize: 16,
-  },
+  }
 });
 
 export default VisitedLocationsScreen;
