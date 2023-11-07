@@ -1,9 +1,11 @@
 import React from "react";
 import { SafeAreaView, View, Text, StyleSheet } from "react-native";
 
+//VisitedLocationDetailsScreen is a component that displays the details of a visited location
 const VisitedLocationDetailsScreen = ({ route }) => {
-  //take advantage of dummy info on location screen instead
+  //extract the location object from the route params
   const { location } = route.params;
+  //renders the location details within a SafeAreaView
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.container}>
@@ -16,10 +18,12 @@ const VisitedLocationDetailsScreen = ({ route }) => {
   );
 };
 
+//styles for the VisitedLocationDetailsScreen component
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
   },
+  //container for the location name
   container: {
     flex: 0.5,
     justifyContent: "center",
@@ -27,10 +31,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
     flexDirection: "row",
   },
+  //styling for the location name
   heading: {
     fontSize: 36,
     fontWeight: "bold",
   },
+  //container for the location description
   badgeDetailsContainer: {
     flex: 4,
     justifyContent: "center",
