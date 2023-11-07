@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SafeAreaView, View, Text } from "react-native";
 import MapView, {Marker} from "react-native-maps";
 import * as Location from 'expo-location';
@@ -14,6 +14,19 @@ const MapScreen = () => {
   ]);
   const [locationPermissionGranted, setLocationPermissionGranted] = useState(false);
 
+  useEffect(() => {
+    const requestLocationPermission = async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === "granted") {
+        setLocationPermissionGranted(true);
+      } else {
+        setLocationPermissionGranted(false);
+      }
+    };
+
+    requestLocationPermission();
+  }, []);
+
   return (
     <SafeAreaView>
       <View>
@@ -24,14 +37,6 @@ const MapScreen = () => {
             longitude: -74.0324,
             latitudeDelta: 0.04,
             longitudeDelta: 0.02,
-          }}
-          onMapReady={ async () => {
-            const granted = await Location.requestForegroundPermissionsAsync();
-            if (granted) {
-              setLocationPermissionGranted(true);
-            } else {
-              setLocationPermissionGranted(false);
-            }
           }}
           showsUserLocation={locationPermissionGranted}
         >
