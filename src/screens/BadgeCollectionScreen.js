@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import Icon from "@expo/vector-icons/AntDesign";
+// import Icon from "@expo/vector-icons/AntDesign";
 
 const BadgeCollectionScreen = ({ navigation }) => {
   //add image to badge later
@@ -55,9 +55,9 @@ const BadgeCollectionScreen = ({ navigation }) => {
               }
             >
               <View style={styles.badgeInformation}>
-                <Text style={styles.badgeName}>{badge.name}</Text>
+                <Text style={styles.badgeName}>Badge: {badge.name}</Text>
               </View>
-              <Icon name="right" size={15} color="black" />
+              {/* <Icon name="right" size={15} color="black" /> */}
             </TouchableOpacity>
           );
         })}
