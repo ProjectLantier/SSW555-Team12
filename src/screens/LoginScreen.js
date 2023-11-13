@@ -5,7 +5,7 @@ import { app } from "../../firebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import loginstyles from "./loginstyles";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,6 +16,7 @@ const LoginScreen = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("User signed in: ", user);
+        navigation.navigate("HomeScreen");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -42,6 +43,11 @@ const LoginScreen = () => {
         style={loginstyles.input}
       />
       <Button title="Log in" onPress={loginFunction} />
+      <Text>Don't have an account?</Text>
+      <Button
+        title="Sign up"
+        onPress={() => navigation.navigate("RegisterScreen")}
+      />
     </SafeAreaView>
   );
 };

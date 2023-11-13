@@ -47,6 +47,9 @@ const ProfileScreen = ({ navigation }) => {
             <Icon name="right" size={15} color="black" />
           </View>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.logout} onPress={() => navigation.navigate("RegisterScreen")}>
+          <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -103,6 +106,15 @@ const styles = StyleSheet.create({
   profileSectionArrow: {
     justifyContent: "center",
   },
+  logoutText: {
+    fontSize: 20
+  },
+  logout: {
+    marginTop: 280,
+    padding: 20,
+    backgroundColor: '#ADD8E6',
+    borderRadius: 10
+  }
 });
 
 export default ProfileScreen;
