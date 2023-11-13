@@ -14,6 +14,15 @@ const MapScreen = () => {
   ]);
   const [locationPermissionGranted, setLocationPermissionGranted] = useState(false);
 
+  async function getLocationPermission() {
+    const granted = await Location.requestForegroundPermissionsAsync();
+    if (granted) {
+      setLocationPermissionGranted(true);
+    } else {
+      setLocationPermissionGranted(false);
+    }
+  }
+
   return (
     <SafeAreaView>
       <View>
@@ -25,24 +34,17 @@ const MapScreen = () => {
             latitudeDelta: 0.04,
             longitudeDelta: 0.02,
           }}
-          onMapReady={ async () => {
-            const granted = await Location.requestForegroundPermissionsAsync();
-            if (granted) {
-              setLocationPermissionGranted(true);
-            } else {
-              setLocationPermissionGranted(false);
-            }
-          }}
+          onMapReady={ getLocationPermission }
           showsUserLocation={locationPermissionGranted}
         >
-          {markerLocations.map((marker) => (
+          {markerLocations.map((significantLocation) => (
             <Marker
-              key={marker.id}
+              key={significantLocation.id}
               coordinate={{
-                latitude: marker.latitude,
-                longitude: marker.longitude,
+                latitude: significantLocation.latitude,
+                longitude: significantLocation.longitude,
               }}
-              title={marker.title}
+              title={significantLocation.title}
             />
           ))}
         </MapView>
