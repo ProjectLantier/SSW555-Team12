@@ -7,8 +7,20 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Icon from "@expo/vector-icons/AntDesign";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileScreen = ({ navigation }) => {
+
+  const logout = async () => {
+    try {
+      await AsyncStorage.removeItem('isloggedIn');
+      navigation.navigate("RegisterScreen");
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.profileInformationContainer}>
@@ -47,7 +59,7 @@ const ProfileScreen = ({ navigation }) => {
             <Icon name="right" size={15} color="black" />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.logout} onPress={() => navigation.navigate("RegisterScreen")}>
+        <TouchableOpacity style={styles.logout} onPress={logout}>
           <Text style={styles.logoutText}>Logout</Text>
         </TouchableOpacity>
       </View>
