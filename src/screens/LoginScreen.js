@@ -4,16 +4,19 @@ import { Alert, Button, Text, TextInput, SafeAreaView } from "react-native";
 import { app } from "../../firebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import loginstyles from "./loginstyles";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const loginFunction = async () => {
+    let worked = false;
     //Do firebase and auth stuff here
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        worked = true;
         const user = userCredential.user;
         console.log("User signed in: ", user);
         navigation.navigate("HomeScreen");
@@ -24,6 +27,14 @@ const LoginScreen = ({ navigation }) => {
         console.error(`${errorCode}: `, errorMessage);
         alert("Sign in failed: " + error.message);
       });
+    if (worked) {
+      try {
+        await AsyncStorage.setItem('isloggedIn', "true");
+      }
+      catch (e) {
+        console.log(e);
+      }
+    }
   };
 
   return (

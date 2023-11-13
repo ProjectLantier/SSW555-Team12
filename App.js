@@ -11,6 +11,8 @@ import BadgeCollectionScreen from "./src/screens/BadgeCollectionScreen";
 import VisitedLocationsScreen from "./src/screens/VisitedLocationsScreen";
 import BadgeDetailsScreen from "./src/screens/BadgeDetailsScreen";
 import VisitedLocationDetailsScreen from "./src/screens/VisitedLocationDetailsScreen";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect } from "react";
 
 const Stack = createStackNavigator();
 
@@ -18,39 +20,42 @@ const getFonts = () => Font.loadAsync({});
 
 const App = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
-
+  const [isloggedIn, setIsloggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   // if (fontsLoaded) {
   //   return <Navigator />;
   // } else {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen
-          name="RegisterScreen"
-          component={RegisterScreen}
-        />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen
-          name="BadgeCollectionScreen"
-          component={BadgeCollectionScreen}
-        />
-        <Stack.Screen
-          name="VisitedLocationsScreen"
-          component={VisitedLocationsScreen}
-        />
-        <Stack.Screen
-          name="BadgeDetailsScreen"
-          component={BadgeDetailsScreen}
-        />
-        <Stack.Screen
-          name="VisitedLocationDetailsScreen"
-          component={VisitedLocationDetailsScreen}
-        />
 
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+  useEffect(() => {
+    const checkLogged = async () => {
+      const isloggedIn = await AsyncStorage.getItem('isloggedIn');
+      if (isloggedIn) {
+        setIsloggedIn(true);
+      }
+      setIsLoading(false);
+    }
+    checkLogged().catch(console.error);
+  }, [])
+
+  if (isLoading) {
+    return (<></>);
+  }
+  else {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={isloggedIn ? "HomeScreen" : "RegisterScreen"}>
+          <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="BadgeCollectionScreen" component={BadgeCollectionScreen} />
+          <Stack.Screen name="VisitedLocationsScreen" component={VisitedLocationsScreen} />
+          <Stack.Screen name="BadgeDetailsScreen" component={BadgeDetailsScreen} />
+          <Stack.Screen name="VisitedLocationDetailsScreen" component={VisitedLocationDetailsScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
+
   // }
 };
 
