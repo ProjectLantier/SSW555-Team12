@@ -25,8 +25,12 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen
+          name="RegisterScreen"
+          component={RegisterScreen}
+        />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen
           name="BadgeCollectionScreen"
           component={BadgeCollectionScreen}
@@ -43,6 +47,7 @@ const App = () => {
           name="VisitedLocationDetailsScreen"
           component={VisitedLocationDetailsScreen}
         />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

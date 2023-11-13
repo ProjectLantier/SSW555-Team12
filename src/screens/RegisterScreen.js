@@ -19,6 +19,7 @@ const RegisterScreen = ({ navigation }) => {
         // Signed up
         const user = userCredential.user;
         console.log("yippee", user);
+        navigation.navigate("HomeScreen");
         // ...
       })
       .catch((error) => {
