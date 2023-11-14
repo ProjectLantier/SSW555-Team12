@@ -10,15 +10,20 @@ import {
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import RegistrationStyle from "../styles/RegistrationStyle";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RegisterScreen = ({ navigation }) => {
-  function register(email, password) {
+  
+  async function register(email, password) {
+    let worked = false;
     const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
+    await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user;
         console.log("yippee", user);
+        navigation.navigate("HomeScreen");
+        worked = true;
         // ...
       })
       .catch((error) => {
@@ -27,6 +32,14 @@ const RegisterScreen = ({ navigation }) => {
         console.log(errorMessage);
         // ..
       });
+    if (worked) {
+      try {
+        await AsyncStorage.setItem('isloggedIn', "true");
+      }
+      catch (e) {
+        console.log(e);
+      }
+    }
   }
 
   const MyButton = ({ title, onPress, buttonStyle, textStyle }) => (

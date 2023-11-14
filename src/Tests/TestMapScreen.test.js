@@ -1,33 +1,35 @@
-import React from 'react';
-import MapScreen from '../screens/MapScreen'; 
-import { render } from '@testing-library/react-native';
-import * as Location from 'expo-location';
-import MapView from 'react-native-maps';
-
-jest.mock('expo-location', () => ({
-    requestForegroundPermissionsAsync: () => Promise.resolve({ granted: true }),
-  }));
+import React from 'react'
+import { render} from '@testing-library/react-native'
+import MapScreen from '../screens/MapScreen';
 
 jest.mock('react-native-maps', () => {
-  const MapView = (props) => {
-    return <div data-testid="map-view" {...props} />;
-  };
-  const Marker = (props) => {
-    return <div data-testid="marker" {...props} />;
-  };
-
-  return {
-    MapView,
-    Marker,
-  };
-});
-
-test('Location is enabled successfully', async () => {
-  const granted = await Location.requestForegroundPermissionsAsync();
-  expect(granted.granted).toBe(true);
-});
-
-test('Map is displayed when location is enabled', async () => {
-    const mapView = MapView;
-    expect(mapView).toBeDefined();
+    const { View } = require('react-native');
+    const MockMapView = (props) => {
+      return <View testID='map'>{props.children}</View>;
+    };
+    const MockMarker = (props) => {
+      return <View testID='marker'>{props.children}</View>;
+    };
+    return {
+      __esModule: true,
+      default: MockMapView,
+      Marker: MockMarker,
+    };
   });
+
+  jest.mock('expo-location', () => {
+    return {
+      // Mock any functions or properties you use from the module
+        requestForegroundPermissionsAsync: jest.fn(),
+    };
+  });
+
+test('Maps renders without errors', () => {
+    render(<MapScreen />)
+})
+
+test('Map has markers', () => {
+    const { getAllByTestId } = render(<MapScreen />);
+    const markers = getAllByTestId('marker');
+    expect(markers.length).toBeGreaterThan(0);
+});

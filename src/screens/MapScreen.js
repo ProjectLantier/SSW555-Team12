@@ -7,25 +7,21 @@ import * as Location from 'expo-location';
 const MapScreen = () => {
 
   const [markerLocations, setMarkerLocations] = useState([
-    {id: 1, title: "Stevens Insitute of Technology", latitude: 40.7448, longitude: -74.0256, latitudeDelta: 0.04, longitudeDelta: 0.02},
-    {id: 2, title: "Benny Tudinos", latitude: 40.744240, longitude: -74.029120, latitudeDelta: 0.04, longitudeDelta: 0.02},
-    {id: 3, title: "Hoboken Terminal", latitude: 40.7349, longitude: -74.0291, latitudeDelta: 0.04, longitudeDelta: 0.02},
+    {id: 1, title: "Stevens Insitute of Technology", latitude: 40.7448, longitude: -74.0256, latitudeDelta: 0.04, longitudeDelta: 0.02, description: "cheap college"},
+    {id: 2, title: "Benny Tudinos", latitude: 40.744240, longitude: -74.029120, latitudeDelta: 0.04, longitudeDelta: 0.02, description: "pizza meme"},
+    {id: 3, title: "Hoboken Terminal", latitude: 40.7349, longitude: -74.0291, latitudeDelta: 0.04, longitudeDelta: 0.02, description: "fun times..."},
 
   ]);
   const [locationPermissionGranted, setLocationPermissionGranted] = useState(false);
 
-  useEffect(() => {
-    const requestLocationPermission = async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status === "granted") {
-        setLocationPermissionGranted(true);
-      } else {
-        setLocationPermissionGranted(false);
-      }
-    };
-
-    requestLocationPermission();
-  }, []);
+  async function getLocationPermission() {
+    const granted = await Location.requestForegroundPermissionsAsync();
+    if (granted) {
+      setLocationPermissionGranted(true);
+    } else {
+      setLocationPermissionGranted(false);
+    }
+  }
 
   return (
     <SafeAreaView>
@@ -38,16 +34,19 @@ const MapScreen = () => {
             latitudeDelta: 0.04,
             longitudeDelta: 0.02,
           }}
+          onMapReady={ getLocationPermission }
           showsUserLocation={locationPermissionGranted}
         >
-          {markerLocations.map((marker) => (
+          {markerLocations.map((significantLocation) => (
             <Marker
-              key={marker.id}
+              key={significantLocation.id}
               coordinate={{
-                latitude: marker.latitude,
-                longitude: marker.longitude,
+                latitude: significantLocation.latitude,
+                longitude: significantLocation.longitude,
               }}
-              title={marker.title}
+              title={significantLocation.title}
+              description={significantLocation.description}
+              onPress={() => this.markerClick()}
             />
           ))}
         </MapView>
