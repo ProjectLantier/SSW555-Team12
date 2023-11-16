@@ -46,7 +46,6 @@ const MapScreen = () => {
               }}
               title={significantLocation.title}
               description={significantLocation.description}
-              onPress={() => this.markerClick()}
             />
           ))}
         </MapView>
