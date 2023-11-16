@@ -6,11 +6,11 @@ const BadgeDetailsScreen = ({ route }) => {
   const { badge } = route.params;
   //dummy info for now
   return (
-    <SafeAreaView style={styles.wrapper}>
-      <View style={styles.container}>
-        <Text style={styles.heading}>{badge.name}</Text>
+    <SafeAreaView style={BadgeAndDetailsStyle.wrapper}>
+      <View style={BadgeAndDetailsStyle.container}>
+        <Text style={BadgeAndDetailsStyle.heading}>{badge.name}</Text>
       </View>
-      <View style={styles.badgeDetailsContainer}>
+      <View style={BadgeAndDetailsStyle.badgeDetailsContainer}>
         <Text>{badge.description}</Text>
       </View>
     </SafeAreaView>

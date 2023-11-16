@@ -5,20 +5,31 @@ import * as Location from "expo-location";
 import { ref, set, update, onValue } from "firebase/database";
 import { db } from "../../firebaseConfig";
 import { useEffect } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 
 const MapScreen = () => {
-  const [locationPermissionGranted, setLocationPermissionGranted] =
-    useState(false);
+  const [locationPermissionGranted, setLocationPermissionGranted] = useState(null);
   const [locations, setLocations] = useState([]);
+  const [mapReady, setMapReady] = useState(false);
 
-  async function getLocationPermission() {
-    const granted = await Location.requestForegroundPermissionsAsync();
-    if (granted) {
-      setLocationPermissionGranted(true);
-    } else {
-      setLocationPermissionGranted(false);
-    }
-  }
+  useEffect(() => {
+    const checkLocationPermission = async () => {
+        const granted = await Location.requestForegroundPermissionsAsync();
+        setLocationPermissionGranted(true);
+        setMapReady(true)
+        if (!granted) {
+          setLocationPermissionGranted(false);
+          Alert.alert(
+            "Location Permission Required",
+            "Please enable location services to use this feature.",
+            [
+              { text: "OK", onPress: () => {} }
+            ]
+          );
+        }
+      };
+      checkLocationPermission();
+    }, []);
 
   function toggleVisitedState(markerId) {
     setLocations((prevLocations) =>
@@ -43,9 +54,14 @@ const MapScreen = () => {
     });
   }, []);
 
+  const handleMapready = () => {
+    setMapReady(true);
+  };
+
   return (
     <SafeAreaView>
-      <View>
+      {locationPermissionGranted && mapReady && (
+        <View>
         <MapView
           style={{ width: "100%", height: "100%" }}
           initialRegion={{
@@ -54,7 +70,7 @@ const MapScreen = () => {
             latitudeDelta: 0.04,
             longitudeDelta: 0.02,
           }}
-          onMapReady={getLocationPermission}
+          onMapReady={handleMapready}
           showsUserLocation={locationPermissionGranted}
         >
           {locations.map((significantLocation) => (
@@ -87,6 +103,8 @@ const MapScreen = () => {
           ))}
         </MapView>
       </View>
+      )}
+      
     </SafeAreaView>
   );
 };

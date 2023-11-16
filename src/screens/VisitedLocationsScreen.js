@@ -52,6 +52,9 @@ const VisitedLocationsScreen = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         ))}
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Map")}>
+          <Text style={styles.buttonText}>Visit More Locations</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -66,9 +69,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   headerText: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: "bold",
-    marginLeft: 30,
+    marginLeft: 24,
+    color: "#033dfc"
   },
   locationItem: {
     padding: 20,
@@ -99,6 +103,20 @@ const styles = StyleSheet.create({
   cardText: {
     fontSize: 16,
   },
+  button: {
+    marginTop: 20,
+    padding: 20,
+    backgroundColor: "#788eec",
+    borderRadius: 10,
+    color: "white",
+    alignItems: "center",
+    width: "60%",
+    marginLeft: 80
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 20,
+  }
 });
 
 export default VisitedLocationsScreen;

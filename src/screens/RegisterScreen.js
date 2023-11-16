@@ -61,8 +61,8 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <View style={RegistrationStyle.container}>
-      <Text style={RegistrationStyle.title}>Welcome to our app!</Text>
-      {/* <StatusBar/> */}
+      <Text style={RegistrationStyle.subheading}>Welcome to:</Text>
+      <Text style = {RegistrationStyle.title}>Sticker Smash!</Text>
       <TextInput
         style={RegistrationStyle.input}
         placeholder="Email"
@@ -81,7 +81,7 @@ const RegisterScreen = ({ navigation }) => {
         textStyle={RegistrationStyle.buttonTitle}
       />
 
-      <Text>Already have an account?</Text>
+      <Text style={{marginBottom: 20}}>Already have an account?</Text>
       <Button
         title="Login"
         onPress={() => navigation.navigate("LoginScreen")}

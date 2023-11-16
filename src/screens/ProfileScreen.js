@@ -22,7 +22,6 @@ const ProfileScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.profileInformationContainer}>
-        <Text style={styles.profileTitle}>Profile</Text>
         <Text style={styles.profileInformation}>Username: </Text>
         <Text style={styles.profileInformation}>Progress:</Text>
       </View>
@@ -66,23 +65,25 @@ const ProfileScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    backgroundColor: "white"
   },
   profileInformationContainer: {
     flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    marginTop: 20,
-    marginLeft: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
   profileTitle: {
     fontSize: 36,
     fontWeight: "bold",
     marginBottom: 20,
+    justifyContent: "center",
+    color: "#788eec"
   },
   profileInformation: {
     fontWeight: "bold",
     color: "#3477eb",
     fontSize: 20,
+    marginBottom: 10
   },
   profileSectionsContainer: {
     flex: 4,
@@ -106,22 +107,28 @@ const styles = StyleSheet.create({
   },
   profileSectionTitle: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 28,
+    color: "#033dfc",
   },
   profileSectionDetails: {
     marginLeft: 8,
+    color: "#788eec",
+    fontWeight: "bold",
+    marginTop: 5
   },
   profileSectionArrow: {
     justifyContent: "center",
   },
   logoutText: {
     fontSize: 20,
+    color: "white"
   },
   logout: {
     marginTop: 280,
     padding: 20,
-    backgroundColor: "#ADD8E6",
+    backgroundColor: "#788eec",
     borderRadius: 10,
+    color: "#788eec"
   },
 });
 

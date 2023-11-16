@@ -33,11 +33,13 @@ const LeaderboardsScreen = () => {
 
 const styles = StyleSheet.create({
   heading: {
-    paddingTop: 10,
+    padding: 20,
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 16,
+    marginBottom: 0,
     textAlign: "center",
+    color: "#033dfc",
+    backgroundColor: "white"
   },
 });
 

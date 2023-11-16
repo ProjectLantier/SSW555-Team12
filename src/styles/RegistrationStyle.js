@@ -13,6 +13,12 @@ export default StyleSheet.create({
     color: "#033dfc",
     fontSize: 25,
   },
+  subheading: {
+    fontSize: 15,
+    fontWeight: "bold",
+    marginBottom: 20,
+    color: "#788eec"
+  },
   logo: {
     flex: 1,
     height: 120,

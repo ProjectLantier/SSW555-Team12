@@ -1,12 +1,15 @@
 import React from "react";
-import { SafeAreaView, View, Text, StyleSheet } from "react-native";
+import { SafeAreaView, View, Text, StyleSheet, Button } from "react-native";
 import BadgeAndDetailsStyle from "../styles/BadgeAndDetailsStyle";
 
-const VisitedLocationDetailsScreen = ({ route }) => {
+const VisitedLocationDetailsScreen = ({ route, navigation }) => {
   //take advantage of dummy info on location screen instead
   const { location } = route.params;
   return (
     <SafeAreaView style={styles.wrapper}>
+      <View style={styles.backButtonContainer}>
+        <Button title="Back" onPress={() => navigation.goBack()} />
+      </View>
       <View style={styles.container}>
         <Text style={styles.heading}>{location.name}</Text>
       </View>
@@ -30,6 +33,13 @@ const VisitedLocationDetailsScreen = ({ route }) => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    backgroundColor: "white"
+  },
+  backButtonContainer: {
+    position: 'absolute',
+    top: 30,
+    left: 0,
+    padding: 10,
   },
   container: {
     flex: 0.5,
@@ -41,6 +51,7 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 36,
     fontWeight: "bold",
+    color:"#033dfc"
   },
   badgeDetailsContainer: {
     flex: 3,
