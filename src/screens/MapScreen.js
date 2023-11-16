@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { SafeAreaView, View, Text } from "react-native";
-import MapView, {Marker} from "react-native-maps";
-import * as Location from 'expo-location';
-
+import React, { useState } from "react";
+import { SafeAreaView, View, Text, Button, StyleSheet } from "react-native";
+import MapView, { Marker, Callout } from "react-native-maps";
+import * as Location from "expo-location";
+import { ref, set, update, onValue } from "firebase/database";
+import { db } from "../../firebaseConfig";
+import { useEffect } from "react";
 
 const MapScreen = () => {
-
-  const [markerLocations, setMarkerLocations] = useState([
-    {id: 1, title: "Stevens Insitute of Technology", latitude: 40.7448, longitude: -74.0256, latitudeDelta: 0.04, longitudeDelta: 0.02, description: "cheap college"},
-    {id: 2, title: "Benny Tudinos", latitude: 40.744240, longitude: -74.029120, latitudeDelta: 0.04, longitudeDelta: 0.02, description: "pizza meme"},
-    {id: 3, title: "Hoboken Terminal", latitude: 40.7349, longitude: -74.0291, latitudeDelta: 0.04, longitudeDelta: 0.02, description: "fun times..."},
-
-  ]);
-  const [locationPermissionGranted, setLocationPermissionGranted] = useState(false);
+  const [locationPermissionGranted, setLocationPermissionGranted] =
+    useState(false);
+  const [locations, setLocations] = useState([]);
 
   async function getLocationPermission() {
     const granted = await Location.requestForegroundPermissionsAsync();
@@ -23,35 +20,93 @@ const MapScreen = () => {
     }
   }
 
+  function toggleVisitedState(markerId) {
+    setLocations((prevLocations) =>
+      prevLocations.map((location) =>
+        location.id === markerId && !location.visited
+          ? { ...location, visited: true }
+          : location
+      )
+    );
+
+    update(ref(db, `locations/${markerId}`), {
+      visited: true,
+    });
+  }
+
+  useEffect(() => {
+    const locationsRef = ref(db, "locations");
+    onValue(locationsRef, (snapshot) => {
+      const data = snapshot.val();
+      setLocations(data);
+      console.log(data);
+    });
+  }, []);
+
   return (
     <SafeAreaView>
       <View>
         <MapView
           style={{ width: "100%", height: "100%" }}
           initialRegion={{
-            latitude: 40.7440,
+            latitude: 40.744,
             longitude: -74.0324,
             latitudeDelta: 0.04,
             longitudeDelta: 0.02,
           }}
-          onMapReady={ getLocationPermission }
+          onMapReady={getLocationPermission}
           showsUserLocation={locationPermissionGranted}
         >
-          {markerLocations.map((significantLocation) => (
+          {locations.map((significantLocation) => (
             <Marker
               key={significantLocation.id}
               coordinate={{
                 latitude: significantLocation.latitude,
                 longitude: significantLocation.longitude,
               }}
-              title={significantLocation.title}
+              title={significantLocation.name}
               description={significantLocation.description}
-            />
+            >
+              <Callout
+                onPress={() => toggleVisitedState(significantLocation.id)}
+              >
+                <View>
+                  <Text style={styles.markerName}>
+                    {significantLocation.name}
+                  </Text>
+                  <Text style={styles.markerDescription}>
+                    {significantLocation.description}
+                  </Text>
+                  <Text style={styles.markerInformation}>Click to Visit!</Text>
+                  <Button
+                    title={significantLocation.visited ? "Visited!" : "Visit"}
+                  />
+                </View>
+              </Callout>
+            </Marker>
           ))}
         </MapView>
       </View>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  markerName: {
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#92A8D1",
+  },
+  markerDescription: {
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  markerInformation: {
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 5,
+  },
+});
 
 export default MapScreen;

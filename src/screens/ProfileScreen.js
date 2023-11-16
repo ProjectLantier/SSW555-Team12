@@ -7,27 +7,23 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Icon from "@expo/vector-icons/AntDesign";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProfileScreen = ({ navigation }) => {
-
   const logout = async () => {
     try {
-      await AsyncStorage.removeItem('isloggedIn');
+      await AsyncStorage.removeItem("isloggedIn");
       navigation.navigate("RegisterScreen");
+    } catch (e) {
+      console.log(e);
     }
-    catch (e) {
-      console.log(e)
-    }
-  }
+  };
 
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.profileInformationContainer}>
         <Text style={styles.profileTitle}>Profile</Text>
         <Text style={styles.profileInformation}>Username: </Text>
-        <Text style={styles.profileInformation}>Visited Locations:</Text>
-        <Text style={styles.profileInformation}>Badges:</Text>
         <Text style={styles.profileInformation}>Progress:</Text>
       </View>
       <View style={styles.profileSectionsContainer}>
@@ -89,7 +85,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   profileSectionsContainer: {
-    flex: 3,
+    flex: 4,
     flexDirection: "column",
     width: "100%",
     alignItems: "center",
@@ -119,14 +115,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   logoutText: {
-    fontSize: 20
+    fontSize: 20,
   },
   logout: {
     marginTop: 280,
     padding: 20,
-    backgroundColor: '#ADD8E6',
-    borderRadius: 10
-  }
+    backgroundColor: "#ADD8E6",
+    borderRadius: 10,
+  },
 });
 
 export default ProfileScreen;

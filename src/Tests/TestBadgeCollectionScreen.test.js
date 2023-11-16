@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react-native";
-import BadgeCollectionScreen from "./BadgeCollectionScreen";
+import BadgeCollectionScreen from "../screens/BadgeCollectionScreen";
 
 const navigation = {
   navigate: jest.fn(),
