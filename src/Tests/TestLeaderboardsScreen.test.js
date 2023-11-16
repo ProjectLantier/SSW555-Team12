@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react-native'
-import LeaderboardsScreen from './LeaderboardsScreen'
+import LeaderboardsScreen from '../screens/LeaderboardsScreen'
 
 test('Leaderboard is sorted by adventure level and then alphabetically', () => {
   const { getAllByText } = render(<LeaderboardsScreen />)
