@@ -72,7 +72,7 @@ const BadgeCollectionScreen = ({ navigation }) => {
             </View>
           );
         })}
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Leaderbords")}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Leaderboards")}>
           <Text style={styles.buttonText}>View Leaderboard</Text>
         </TouchableOpacity>
       </View>
