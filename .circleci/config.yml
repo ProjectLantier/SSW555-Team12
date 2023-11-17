@@ -16,7 +16,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: npm test
+          command: npx jest
 
 workflows:
   version: 2
