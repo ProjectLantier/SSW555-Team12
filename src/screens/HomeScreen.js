@@ -4,18 +4,44 @@ import RegisterScreen from "./RegisterScreen";
 import ProfileScreen from "./ProfileScreen";
 import LeaderboardsScreen from "./LeaderboardsScreen";
 import MapScreen from "./MapScreen";
+import { Image } from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faUser, faMap, faListAlt } from "@fortawesome/free-regular-svg-icons";
+
 
 const Tab = createBottomTabNavigator();
 
 const HomeScreen = () => {
+
   return (
     <Tab.Navigator>
       {/*   Will make info screen later for home component instead of register     */}
       
       {/*   can change map into something else later    */}
-      <Tab.Screen name="Profile" component={ProfileScreen} />
-      <Tab.Screen name="Map" component={MapScreen} />
-      <Tab.Screen name="Leaderbords" component={LeaderboardsScreen} />
+      <Tab.Screen 
+        name="Profile" 
+        component={ProfileScreen} 
+        options={{
+          tabBarIcon: () => (
+            <FontAwesomeIcon icon={faUser}/>
+          )
+        }}/>
+      <Tab.Screen 
+        name="Map" 
+        component={MapScreen} 
+        options={{
+          tabBarIcon: () => (
+            <FontAwesomeIcon icon={faMap} />
+          )
+        }}/>
+      <Tab.Screen 
+        name="Leaderbords" 
+        component={LeaderboardsScreen} 
+        options={{
+          tabBarIcon: () => (
+            <FontAwesomeIcon icon={faListAlt} />
+          )
+        }}/>
     </Tab.Navigator>
   );
 };
