@@ -1,4 +1,8 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { ref, set, update, onValue } from "firebase/database";
+import { db } from "../../firebaseConfig";
 import {
   SafeAreaView,
   ScrollView,
@@ -10,56 +14,15 @@ import {
 } from "react-native";
 
 const VisitedLocationsScreen = ({ navigation }) => {
-  const locations = [
-    {
-      name: "abc",
-      latitude: 123,
-      longitude: 456,
-      address: "123 main street",
-      type: "resturant",
-      description: "that nice place down the block",
-    },
-    {
-      name: "abc",
-      latitude: 123,
-      longitude: 456,
-      address: "123 main street",
-      type: "resturant",
-      description: "that nice place down the block",
-    },
-    {
-      name: "abc",
-      latitude: 123,
-      longitude: 456,
-      address: "123 main street",
-      type: "resturant",
-      description: "that nice place down the block",
-    },
-    {
-      name: "abc",
-      latitude: 123,
-      longitude: 456,
-      address: "123 main street",
-      type: "resturant",
-      description: "that nice place down the block",
-    },
-    {
-      name: "abc",
-      latitude: 123,
-      longitude: 456,
-      address: "123 main street",
-      type: "resturant",
-      description: "that nice place down the block",
-    },
-    {
-      name: "abc",
-      latitude: 123,
-      longitude: 456,
-      address: "123 main street",
-      type: "resturant",
-      description: "that nice place down the block",
-    },
-  ];
+  const [locations, setLocations] = useState([]);
+
+  useEffect(() => {
+    const locationsRef = ref(db, "locations");
+    onValue(locationsRef, (snapshot) => {
+      const data = snapshot.val();
+      setLocations(data);
+    });
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -77,10 +40,16 @@ const VisitedLocationsScreen = ({ navigation }) => {
             }
           >
             <Text style={styles.cardText}>Name: {location.name}</Text>
+            <Text style={styles.cardText}>
+              Description: {location.description}
+            </Text>
             <Text style={styles.cardText}>Latitude: {location.latitude}</Text>
             <Text style={styles.cardText}>Longitude: {location.longitude}</Text>
             <Text style={styles.cardText}>Address: {location.address}</Text>
             <Text style={styles.cardText}>Type: {location.type}</Text>
+            <Text style={styles.cardText}>
+              {location.visited ? "Already visited!" : "Not visited yet!"}
+            </Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -129,7 +98,7 @@ const styles = StyleSheet.create({
   },
   cardText: {
     fontSize: 16,
-  }
+  },
 });
 
 export default VisitedLocationsScreen;

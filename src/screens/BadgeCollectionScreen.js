@@ -10,6 +10,7 @@ import {
 
 const BadgeCollectionScreen = ({ navigation }) => {
   //add image to badge later
+  //grab these from database
   const badges = [
     {
       id: 1,
