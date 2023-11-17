@@ -35,7 +35,7 @@ const HomeScreen = () => {
           )
         }}/>
       <Tab.Screen 
-        name="Leaderbords" 
+        name="Leaderboards" 
         component={LeaderboardsScreen} 
         options={{
           tabBarIcon: () => (
