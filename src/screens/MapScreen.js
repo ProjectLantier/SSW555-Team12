@@ -5,11 +5,13 @@ import * as Location from "expo-location";
 import { ref, set, update, onValue } from "firebase/database";
 import { db } from "../../firebaseConfig";
 import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 
 const MapScreen = () => {
   const [locationPermissionGranted, setLocationPermissionGranted] =
     useState(false);
   const [locations, setLocations] = useState([]);
+  const userCredential = useAuth();
 
   async function getLocationPermission() {
     const granted = await Location.requestForegroundPermissionsAsync();
@@ -39,7 +41,8 @@ const MapScreen = () => {
     onValue(locationsRef, (snapshot) => {
       const data = snapshot.val();
       setLocations(data);
-      console.log(data);
+      // console.log(data);
+      console.log("id: ", userCredential.uid);
     });
   }, []);
 
