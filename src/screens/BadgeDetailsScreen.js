@@ -6,7 +6,6 @@ const styles = BadgeAndDetailsStyle
 
 const BadgeDetailsScreen = ({ route }) => {
   const { badge } = route.params;
-  //dummy info for now
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.container}>
