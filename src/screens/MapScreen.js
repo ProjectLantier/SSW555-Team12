@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, View, Text, Button, StyleSheet } from "react-native";
+import { SafeAreaView, View, Text, Button, StyleSheet, Image } from "react-native";
 import MapView, { Marker, Callout } from "react-native-maps";
 import * as Location from "expo-location";
 import { ref, set, update, onValue } from "firebase/database";
@@ -67,7 +67,12 @@ const MapScreen = () => {
               title={significantLocation.name}
               description={significantLocation.description}
             >
-              <Callout
+              <Image
+                source={{
+                  uri: 'https://cdn-icons-png.flaticon.com/512/4284/4284088.png',
+                }}
+                style={{ width: 30, height: 30 }} />
+              <Callout style={{width: 100}}
                 onPress={() => toggleVisitedState(significantLocation.id)}
               >
                 <View>
