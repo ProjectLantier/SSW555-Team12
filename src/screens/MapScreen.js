@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { SafeAreaView, View, Text, Button, StyleSheet, Image } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Image,
+} from "react-native";
 import MapView, { Marker, Callout } from "react-native-maps";
 import * as Location from "expo-location";
 import { ref, set, update, onValue } from "firebase/database";
@@ -11,7 +18,7 @@ const MapScreen = () => {
   const [locationPermissionGranted, setLocationPermissionGranted] =
     useState(false);
   const [locations, setLocations] = useState([]);
-  const userCredential = useAuth();
+  // const userCredential = useAuth();
 
   async function getLocationPermission() {
     const granted = await Location.requestForegroundPermissionsAsync();
@@ -42,7 +49,8 @@ const MapScreen = () => {
       const data = snapshot.val();
       setLocations(data);
       // console.log(data);
-      console.log("id: ", userCredential.uid);
+
+      // console.log("id: ", userCredential.uid);
     });
   }, []);
 
@@ -72,10 +80,12 @@ const MapScreen = () => {
             >
               <Image
                 source={{
-                  uri: 'https://cdn-icons-png.flaticon.com/512/4284/4284088.png',
+                  uri: "https://cdn-icons-png.flaticon.com/512/4284/4284088.png",
                 }}
-                style={{ width: 30, height: 30 }} />
-              <Callout style={{width: 100}}
+                style={{ width: 30, height: 30 }}
+              />
+              <Callout
+                style={{ width: 100 }}
                 onPress={() => toggleVisitedState(significantLocation.id)}
               >
                 <View>

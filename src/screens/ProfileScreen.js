@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import Icon from "@expo/vector-icons/AntDesign";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 
 const ProfileScreen = ({ navigation }) => {
   const logout = async () => {
@@ -18,6 +20,12 @@ const ProfileScreen = ({ navigation }) => {
       console.log(e);
     }
   };
+
+  const userCredentials = useAuth();
+
+  useEffect(() => {
+    console.log("id: ", userCredentials.uid);
+  }, []);
 
   return (
     <SafeAreaView style={styles.wrapper}>

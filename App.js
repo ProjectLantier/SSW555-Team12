@@ -42,8 +42,8 @@ const App = () => {
     return <></>;
   } else {
     return (
-      <AuthProvider>
-        <NavigationContainer>
+      <NavigationContainer>
+        <AuthProvider>
           <Stack.Navigator
             screenOptions={{ headerShown: false }}
             initialRouteName={isloggedIn ? "HomeScreen" : "RegisterScreen"}
@@ -68,8 +68,8 @@ const App = () => {
               component={VisitedLocationDetailsScreen}
             />
           </Stack.Navigator>
-        </NavigationContainer>
-      </AuthProvider>
+        </AuthProvider>
+      </NavigationContainer>
     );
   }
 

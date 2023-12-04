@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set } from "firebase/database";
 import "@firebase/auth";
+import { getReactNativePersistence, initializeAuth } from "firebase/auth";
+import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 
 const firebaseConfig = {
   apiKey: process.env.apiKey,
@@ -14,6 +16,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
+});
 
 const locations = [
   {
@@ -49,8 +54,8 @@ const locations = [
   {
     id: 3,
     name: "Pier A Park",
-    latitude: 40.7360,
-    longitude: -74.0270,
+    latitude: 40.736,
+    longitude: -74.027,
     latitudeDelta: 0.04,
     longitudeDelta: 0.02,
     description: "scenic waterfront park",
@@ -59,7 +64,7 @@ const locations = [
   {
     id: 4,
     name: "Hoboken Historical Museum",
-    latitude: 40.7520,
+    latitude: 40.752,
     longitude: -74.0275,
     latitudeDelta: 0.04,
     longitudeDelta: 0.02,
@@ -69,8 +74,8 @@ const locations = [
   {
     id: 5,
     name: "Castle Point Lookout",
-    latitude: 40.7450,
-    longitude: -74.0230,
+    latitude: 40.745,
+    longitude: -74.023,
     latitudeDelta: 0.04,
     longitudeDelta: 0.02,
     description: "stunning city views",
@@ -179,8 +184,8 @@ const locations = [
   {
     id: 16,
     name: "Hoboken Historical Museum's Fire Department Museum",
-    latitude: 40.7480,
-    longitude: -74.0300,
+    latitude: 40.748,
+    longitude: -74.03,
     latitudeDelta: 0.04,
     longitudeDelta: 0.02,
     description: "vintage fire apparatus and memorabilia",
@@ -209,7 +214,7 @@ const locations = [
   {
     id: 19,
     name: "Hudson River Waterfront Walkway",
-    latitude: 40.7340,
+    latitude: 40.734,
     longitude: -74.0268,
     latitudeDelta: 0.04,
     longitudeDelta: 0.02,
@@ -219,7 +224,7 @@ const locations = [
   {
     id: 20,
     name: "Washington Street",
-    latitude: 40.7410,
+    latitude: 40.741,
     longitude: -74.0295,
     latitudeDelta: 0.04,
     longitudeDelta: 0.02,
@@ -240,7 +245,7 @@ const locations = [
     id: 22,
     name: "Hoboken Farmers Market",
     latitude: 40.7424,
-    longitude: -74.0330,
+    longitude: -74.033,
     latitudeDelta: 0.04,
     longitudeDelta: 0.02,
     description: "local produce and artisanal foods",
@@ -315,7 +320,7 @@ const locations = [
     longitudeDelta: 0.02,
     description: "memorial site honoring 9/11 victims",
     visited: false,
-  }
+  },
 ];
 
 const badges = [
@@ -363,4 +368,4 @@ function writeBadgeData(badges) {
 writeLocationData(locations);
 writeBadgeData(badges);
 
-export { app, db };
+export { app, db, auth };
