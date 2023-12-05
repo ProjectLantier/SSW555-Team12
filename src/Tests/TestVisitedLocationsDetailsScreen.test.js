@@ -2,6 +2,8 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 import VisitedLocationDetailsScreen from '../screens/VisitedLocationDetailsScreen';
 
+//needs updating
+
 test('Visited Location Details Screen renders without errors', () => {
   const route = {
     params: {

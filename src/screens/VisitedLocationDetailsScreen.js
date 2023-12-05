@@ -1,9 +1,7 @@
 import React from "react";
-import { SafeAreaView, View, Text, StyleSheet, Button } from "react-native";
-import BadgeAndDetailsStyle from "../styles/BadgeAndDetailsStyle";
+import { SafeAreaView, View, Text, StyleSheet } from "react-native";
 
-const VisitedLocationDetailsScreen = ({ route, navigation }) => {
-  //take advantage of dummy info on location screen instead
+const VisitedLocationDetailsScreen = ({ route }) => {
   const { location } = route.params;
   return (
     <SafeAreaView style={styles.wrapper}>
