@@ -23,16 +23,16 @@ const ProfileScreen = ({ navigation }) => {
 
   const userCredentials = useAuth();
 
-  useEffect(() => {
-    console.log("id: ", userCredentials.uid);
-  }, []);
-
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.profileInformationContainer}>
         <Text style={styles.profileTitle}>Profile</Text>
-        <Text style={styles.profileInformation}>Username: </Text>
-        <Text style={styles.profileInformation}>Progress:</Text>
+        <Text style={styles.profileInformation}>
+          <Text style={styles.descriptor}>Email:</Text> {userCredentials.email}
+        </Text>
+        <Text style={styles.profileInformation}>
+          <Text style={styles.descriptor}>Adventure Level: </Text>0
+        </Text>
       </View>
       <View style={styles.profileSectionsContainer}>
         <TouchableOpacity
@@ -88,9 +88,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   profileInformation: {
+    fontSize: 20,
+  },
+  descriptor: {
     fontWeight: "bold",
     color: "#3477eb",
-    fontSize: 20,
   },
   profileSectionsContainer: {
     flex: 4,
