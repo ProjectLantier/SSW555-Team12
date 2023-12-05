@@ -3,8 +3,8 @@ import { useState } from "react";
 import { Alert, Button, Text, TextInput, View, TouchableOpacity} from "react-native";
 import { app } from "../../firebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import RegistrationStyle from "../styles/RegistrationStyle";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import loginstyles from "./loginstyles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setUsername] = useState("");
@@ -36,9 +36,8 @@ const LoginScreen = ({ navigation }) => {
       });
     if (worked) {
       try {
-        await AsyncStorage.setItem('isloggedIn', "true");
-      }
-      catch (e) {
+        await AsyncStorage.setItem("isloggedIn", "true");
+      } catch (e) {
         console.log(e);
       }
     }
