@@ -7,17 +7,20 @@ const VisitedLocationDetailsScreen = ({ route }) => {
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.container}>
         <Text style={styles.heading}>{location.name}</Text>
+        <Text style={styles.locationDetails}>{location.description}</Text>
       </View>
-      <View style={styles.badgeDetailsContainer}>
-        <Text style={styles.badgeDetails}>
-          Description: {location.description}
+      <View style={styles.locationDetailsContainer}>
+        <Text style={styles.locationDetails}>
+          <Text style={styles.descriptor}>Latitude:</Text> {location.latitude}
         </Text>
-        <Text style={styles.badgeDetails}>Latitude: {location.latitude}</Text>
-        <Text style={styles.badgeDetails}>Longitude: {location.longitude}</Text>
-        <Text style={styles.badgeDetails}>Address: {location.address}</Text>
-        <Text style={styles.badgeDetails}>Type: {location.type}</Text>
-        <Text style={styles.badgeDetails}>
-          {location.visited ? "Already visited!" : "Not visited yet!"}
+        <Text style={styles.locationDetails}>
+          <Text style={styles.descriptor}>Longitude:</Text> {location.longitude}
+        </Text>
+        <Text style={styles.locationDetails}>
+          <Text style={styles.descriptor}>Address:</Text> {location.address}
+        </Text>
+        <Text style={styles.locationDetails}>
+          <Text style={styles.descriptor}>Type:</Text> {location.type}
         </Text>
         {/* an image of the place here */}
       </View>
@@ -32,22 +35,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 0.5,
     justifyContent: "center",
-    alignItems: "flex-start",
+    alignItems: "center",
     marginTop: 20,
-    flexDirection: "row",
+    flexDirection: "column",
   },
   heading: {
     fontSize: 36,
     fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 10,
   },
-  badgeDetailsContainer: {
+  locationDetailsContainer: {
     flex: 3,
     justifyContent: "flex-start",
     flexDirection: "column",
     alignItems: "center",
   },
-  badgeDetails: {
+  locationDetails: {
     fontSize: 20,
+  },
+  descriptor: {
+    fontWeight: "bold",
   },
 });
 

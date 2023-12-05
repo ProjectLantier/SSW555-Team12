@@ -1,15 +1,39 @@
 import React, { useState } from "react";
-import { SafeAreaView, View, Text, Button, StyleSheet, Image } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Image,
+} from "react-native";
 import MapView, { Marker, Callout } from "react-native-maps";
 import * as Location from "expo-location";
-import { ref, set, update, onValue } from "firebase/database";
+import { ref, set, update, onValue, get, child } from "firebase/database";
 import { db } from "../../firebaseConfig";
 import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 
 const MapScreen = () => {
   const [locationPermissionGranted, setLocationPermissionGranted] =
     useState(false);
   const [locations, setLocations] = useState([]);
+  const [usersVisitedLocations, setUsersVisitedLocations] = useState([]);
+  const userCredentials = useAuth();
+
+  useEffect(() => {
+    const locationsRef = ref(db, "locations");
+    onValue(locationsRef, (snapshot) => {
+      const data = snapshot.val();
+      setLocations(data);
+
+      const userRef = ref(db, `users/${userCredentials.uid}`);
+      get(child(userRef, "visitedLocations")).then((snapshot) => {
+        const visitedLocations = snapshot.val() || [];
+        setUsersVisitedLocations(visitedLocations);
+      });
+    });
+  }, [userCredentials.uid]);
 
   async function getLocationPermission() {
     const granted = await Location.requestForegroundPermissionsAsync();
@@ -20,28 +44,40 @@ const MapScreen = () => {
     }
   }
 
-  function toggleVisitedState(markerId) {
-    setLocations((prevLocations) =>
-      prevLocations.map((location) =>
-        location.id === markerId && !location.visited
-          ? { ...location, visited: true }
-          : location
-      )
-    );
+  function toggleVisitedState(location) {
+    // setLocations((prevLocations) =>
+    //   prevLocations.map((location) =>
+    //     location.id === markerId && !location.visited
+    //       ? { ...location, visited: true }
+    //       : location
+    //   )
+    // );
+    const userRef = ref(db, `users/${userCredentials.uid}`);
 
-    update(ref(db, `locations/${markerId}`), {
-      visited: true,
-    });
+    get(child(userRef, "visitedLocations"))
+      .then((snapshot) => {
+        const visitedLocations = snapshot.val() || [];
+        console.log(visitedLocations);
+        let updatedLocations = [...visitedLocations];
+        if (
+          !visitedLocations.some(
+            (visitedLocation) => visitedLocation.id === location.id
+          )
+        ) {
+          updatedLocations.push({ ...location });
+        }
+
+        update(userRef, { visitedLocations: updatedLocations });
+        setUsersVisitedLocations(updatedLocations);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    // update(ref(db, `users/${userCredentials.uid}`), {
+    //   visited: true,
+    // });
   }
-
-  useEffect(() => {
-    const locationsRef = ref(db, "locations");
-    onValue(locationsRef, (snapshot) => {
-      const data = snapshot.val();
-      setLocations(data);
-      console.log(data);
-    });
-  }, []);
 
   return (
     <SafeAreaView>
@@ -69,11 +105,13 @@ const MapScreen = () => {
             >
               <Image
                 source={{
-                  uri: 'https://cdn-icons-png.flaticon.com/512/4284/4284088.png',
+                  uri: "https://cdn-icons-png.flaticon.com/512/4284/4284088.png",
                 }}
-                style={{ width: 30, height: 30 }} />
-              <Callout style={{width: 100}}
-                onPress={() => toggleVisitedState(significantLocation.id)}
+                style={{ width: 30, height: 30 }}
+              />
+              <Callout
+                style={{ width: 100 }}
+                onPress={() => toggleVisitedState(significantLocation)}
               >
                 <View>
                   <Text style={styles.markerName}>
@@ -84,7 +122,14 @@ const MapScreen = () => {
                   </Text>
                   <Text style={styles.markerInformation}>Click to Visit!</Text>
                   <Button
-                    title={significantLocation.visited ? "Visited!" : "Visit"}
+                    title={
+                      usersVisitedLocations.some(
+                        (visitedLocation) =>
+                          visitedLocation.id === significantLocation.id
+                      )
+                        ? "Visited!"
+                        : "Visit"
+                    }
                   />
                 </View>
               </Callout>
