@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, View, Text, Button, StyleSheet, Image } from "react-native";
+import { SafeAreaView, View, Text, Button, StyleSheet, Image, Alert } from "react-native";
 import MapView, { Marker, Callout } from "react-native-maps";
 import * as Location from "expo-location";
 import { ref, set, update, onValue } from "firebase/database";
@@ -32,6 +32,8 @@ const MapScreen = () => {
     update(ref(db, `locations/${markerId}`), {
       visited: true,
     });
+
+    // implement alert popup
   }
 
   useEffect(() => {
