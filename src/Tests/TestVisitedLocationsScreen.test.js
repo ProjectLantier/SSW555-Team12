@@ -7,6 +7,35 @@ const mockNavigation = {
     goBack: jest.fn(),
 };
 
+jest.mock('firebase/database', () => {
+    return {
+      // Mock any functions or properties you use from the module
+        ref: jest.fn(),
+        set: jest.fn(),
+        update: jest.fn(),
+        onValue: jest.fn(),
+        getDatabase: jest.fn()
+    };
+});
+
+jest.mock('firebase/app', () => {
+    return {
+      // Mock any functions or properties you use from the module
+        initializeApp: jest.fn(),
+        
+    };
+});
+
+jest.mock('@firebase/auth', () => {
+    return {
+      // Mock any functions or properties you use from the module
+        signInWithEmailAndPassword: jest.fn(),
+        createUserWithEmailAndPassword: jest.fn(),
+        signOut: jest.fn(),
+        onAuthStateChanged: jest.fn(),
+    };
+});
+
 test('Visited Locations renders without errors', () => {
     render(<VisitedLocationsScreen />)
 })

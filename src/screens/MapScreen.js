@@ -6,6 +6,7 @@ import { ref, set, update, onValue } from "firebase/database";
 import { db } from "../../firebaseConfig";
 import { useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
+import { Alert } from "react-native";
 
 const MapScreen = () => {
   const [locationPermissionGranted, setLocationPermissionGranted] = useState(null);

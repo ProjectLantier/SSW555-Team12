@@ -21,7 +21,7 @@ test('Visited Location Details Screen displays the correct location name', () =>
     params: {
       location: {
         name: 'abc',
-        description: 'that nice place down the block',
+        description: ' place down the block',
       },
     },
   };
@@ -40,6 +40,6 @@ test('Visited Location Details Screen displays the correct location description'
     },
   };
   const { getByText } = render(<VisitedLocationDetailsScreen route={route} />);
-  const locationDescriptionElement = getByText('that nice place down the block');
+  const locationDescriptionElement = getByText("Description: that nice place down the block");
   expect(locationDescriptionElement).toBeDefined();
 });
