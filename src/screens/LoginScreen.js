@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Alert, Button, Text, TextInput, View, TouchableOpacity} from "react-native";
 import { app } from "../../firebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import loginstyles from "./loginstyles";
+import RegistrationStyle from "../styles/RegistrationStyle";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginScreen = ({ navigation }) => {

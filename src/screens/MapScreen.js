@@ -18,6 +18,7 @@ const MapScreen = () => {
   const [locationPermissionGranted, setLocationPermissionGranted] = useState(null);
   const [locations, setLocations] = useState([]);
   const [usersVisitedLocations, setUsersVisitedLocations] = useState([]);
+  const [mapReady, setMapReady] = useState(false);
   const userCredentials = useAuth();
 
   useEffect(() => {
@@ -52,6 +53,10 @@ const MapScreen = () => {
       };
       checkLocationPermission();
     }, []);
+
+    const handleMapready = () => {
+      setMapReady(true);
+    };
 
   function toggleVisitedState(location) {
     // setLocations((prevLocations) =>

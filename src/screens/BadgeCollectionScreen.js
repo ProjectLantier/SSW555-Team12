@@ -7,12 +7,18 @@ import {
   TouchableOpacity,
   Button
 } from "react-native";
+import { ref, set, update, onValue, get, child } from "firebase/database";
+import { db } from "../../firebaseConfig";
+import { useAuth } from "../context/AuthContext";
+
 // import Icon from "@expo/vector-icons/AntDesign";
 
 const BadgeCollectionScreen = ({ navigation }) => {
   //add image to badge later
   //grab these from database
   const [totalPoints, setTotalPoints] = useState(0);
+  const userCredentials = useAuth();
+
   const badges = [
     {
       id: 1,
@@ -53,6 +59,18 @@ const BadgeCollectionScreen = ({ navigation }) => {
     });
     setTotalPoints(points);
   })
+
+  useEffect(() => {
+    const userRef = ref(db, `users/${userCredentials.uid}`);
+    const pointsUpdate = { points: totalPoints }; 
+    update(userRef, pointsUpdate)
+      .then(() => {
+        console.log("Total points updated successfully");
+      })
+      .catch((error) => {
+        console.error("Error updating total points:", error);
+      });
+  }, [userCredentials.uid, totalPoints]);
 
   return (
     <SafeAreaView style={styles.wrapper}>

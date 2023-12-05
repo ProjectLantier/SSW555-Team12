@@ -1,7 +1,7 @@
 import React from "react";
-import { SafeAreaView, View, Text, StyleSheet } from "react-native";
+import { SafeAreaView, View, Text, StyleSheet, Button } from "react-native";
 
-const VisitedLocationDetailsScreen = ({ route }) => {
+const VisitedLocationDetailsScreen = ({ route, navigation }) => {
   const { location } = route.params;
   return (
     <SafeAreaView style={styles.wrapper}>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     flex: 0.5,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 26,
     flexDirection: "column",
   },
   heading: {
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     flexDirection: "column",
     alignItems: "center",
+    margin: 30
   },
   locationDetails: {
     fontSize: 20,
