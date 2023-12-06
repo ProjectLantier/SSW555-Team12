@@ -22,14 +22,14 @@ const RegisterScreen = ({ navigation }) => {
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user;
+        console.log("yippee", user);
+        navigation.navigate("HomeScreen");
         worked = true;
         const usersRef = ref(db, `users/${user.uid}`);
         set(usersRef, {
           email: user.email,
           adventureLevel: 0,
         });
-        console.log("yippee", user);
-        navigation.navigate("HomeScreen");
 
         // ...
       })
