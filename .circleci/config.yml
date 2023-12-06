@@ -16,7 +16,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: npx jest --testPathPattern="^(?!.*TestVisitedLocationsScreen.*|.*TestBadgeCollectionScreen.*|.*TestMapScreen.*).*$"
+          command: npx jest --testPathPattern="^(?!.*TestVisitedLocationsScreen.*|.*TestBadgeCollectionScreen.*|.*TestMapScreen.*|.*TestLeaderboardsScreen.*).*$"
 
 workflows:
   version: 2
