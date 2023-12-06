@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 36,
     fontWeight: "bold",
-    marginLeft: 50
-    
+    marginLeft: 50,
+    color: "#033dfc",
   },
   locationItem: {
     padding: 20,

@@ -15,11 +15,7 @@ const LeaderboardsScreen = () => {
         if (snapshot.exists()) {
           const data = snapshot.val();
           const usersArray = Object.values(data);
-          console.log("Original data:", data);
-          console.log("Users array before sorting:", usersArray);
-
           usersArray.sort((a, b) => (b.points || 0) - (a.points || 0));
-          console.log("Users array after sorting:", usersArray);
           setUsers(usersArray);
         }
       });
