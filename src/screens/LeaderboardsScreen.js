@@ -7,6 +7,9 @@ import { db } from "../../firebaseConfig";
 
 const LeaderboardsScreen = () => {
   const users = query(ref(db, 'users'), orderByChild(`points`));
+  useEffect(() => {
+    console.log(users)
+  }, []);
 
   /*
   const users = [
