@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 import Leaderboard from "../components/Leaderboard";
 import { ref, set, update, onValue, get, child, query, orderByChild } from "firebase/database";
 import { db } from "../../firebaseConfig";
+import { useEffect } from "react";
 
 const LeaderboardsScreen = () => {
   const users = query(ref(db, 'users'), orderByChild(`points`));
