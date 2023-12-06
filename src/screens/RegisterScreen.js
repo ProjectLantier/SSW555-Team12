@@ -23,7 +23,7 @@ const RegisterScreen = ({ navigation }) => {
         // Signed up
         const user = userCredential.user;
         console.log("yippee", user);
-        navigation.navigate("HomeScreen");
+        navigation.navigate("Tutorial");
         worked = true;
         const usersRef = ref(db, `users/${user.uid}`);
         set(usersRef, {

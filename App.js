@@ -23,7 +23,9 @@ const getFonts = () => Font.loadAsync({});
 const App = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [isloggedIn, setIsloggedIn] = useState(false);
+  const [firstTime, setFirstTime] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [initalRouteName, setInitialRouteName] = useState("RegisterScreen");
   // if (fontsLoaded) {
   //   return <Navigator />;
   // } else {
@@ -37,6 +39,25 @@ const App = () => {
       setIsLoading(false);
     };
     checkLogged().catch(console.error);
+
+    const checkFirstTime = async () => {
+      const firstTime = await AsyncStorage.getItem("firstTime");
+      console.log(firstTime)
+      if (!firstTime || firstTime == "false") {
+        setFirstTime(true);
+      } else {
+        setFirstTime(false);
+      }
+    }
+    checkFirstTime().catch(console.error);
+
+    if (isloggedIn && firstTime) {
+      setInitialRouteName("Tutorial");
+    } else if (isloggedIn) {
+      setInitialRouteName("HomeScreen");
+    } else {
+      setInitialRouteName("RegisterScreen");
+    }
   }, []);
 
   if (isLoading) {
@@ -47,7 +68,7 @@ const App = () => {
         <AuthProvider>
           <Stack.Navigator
             screenOptions={{ headerShown: false }}
-            initialRouteName={isloggedIn ? "Tutorial" : "RegisterScreen"}
+            initialRouteName={initalRouteName}
           >
             <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
