@@ -11,7 +11,7 @@ const HomeScreen = () => {
   return (
     <Tab.Navigator>
       {/*   Will make info screen later for home component instead of register     */}
-      
+
       {/*   can change map into something else later    */}
       <Tab.Screen name="Map" component={MapScreen} />
       <Tab.Screen name="Leaderbords" component={LeaderboardsScreen} />

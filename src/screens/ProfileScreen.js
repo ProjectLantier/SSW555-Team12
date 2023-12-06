@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import Icon from "@expo/vector-icons/AntDesign";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 
 const ProfileScreen = ({ navigation }) => {
   const logout = async () => {
@@ -19,12 +21,18 @@ const ProfileScreen = ({ navigation }) => {
     }
   };
 
+  const userCredentials = useAuth();
+
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.profileInformationContainer}>
         <Text style={styles.profileTitle}>Profile</Text>
-        <Text style={styles.profileInformation}>Username: </Text>
-        <Text style={styles.profileInformation}>Progress:</Text>
+        <Text style={styles.profileInformation}>
+          <Text style={styles.descriptor}>Email:</Text> {userCredentials.email}
+        </Text>
+        <Text style={styles.profileInformation}>
+          <Text style={styles.descriptor}>Adventure Level: </Text>0
+        </Text>
       </View>
       <View style={styles.profileSectionsContainer}>
         <TouchableOpacity
@@ -80,9 +88,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   profileInformation: {
+    fontSize: 20,
+  },
+  descriptor: {
     fontWeight: "bold",
     color: "#3477eb",
-    fontSize: 20,
   },
   profileSectionsContainer: {
     flex: 4,
