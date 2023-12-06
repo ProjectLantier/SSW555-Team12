@@ -6,6 +6,7 @@ import {
   Button,
   StyleSheet,
   Image,
+  Alert,
 } from "react-native";
 import MapView, { Marker, Callout } from "react-native-maps";
 import * as Location from "expo-location";
@@ -65,6 +66,7 @@ const MapScreen = () => {
           )
         ) {
           updatedLocations.push({ ...location });
+          Alert.alert('Visited!', `${location.name} added to visited locations!`);
         }
 
         update(userRef, { visitedLocations: updatedLocations });
