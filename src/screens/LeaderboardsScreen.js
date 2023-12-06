@@ -2,8 +2,13 @@ import React from "react";
 import { SafeAreaView, View, Text } from "react-native";
 import { StyleSheet } from "react-native";
 import Leaderboard from "../components/Leaderboard";
+import { ref, set, update, onValue, get, child, query } from "firebase/database";
+import { db } from "../../firebaseConfig";
 
 const LeaderboardsScreen = () => {
+  const users = query(ref(db, 'users'), orderByChild(`points`));
+
+  /*
   const users = [
     { id: 1, name: "Eric", adventureLevel: 3 },
     { id: 2, name: "Andy", adventureLevel: 7 },
@@ -20,6 +25,7 @@ const LeaderboardsScreen = () => {
     }
     return user2.adventureLevel - user1.adventureLevel;
   });
+  */
 
   return (
     <SafeAreaView>
