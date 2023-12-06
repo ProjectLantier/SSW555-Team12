@@ -2,7 +2,7 @@ import React from "react";
 import { SafeAreaView, View, Text } from "react-native";
 import { StyleSheet } from "react-native";
 import Leaderboard from "../components/Leaderboard";
-import { ref, set, update, onValue, get, child, query } from "firebase/database";
+import { ref, set, update, onValue, get, child, query, orderByChild } from "firebase/database";
 import { db } from "../../firebaseConfig";
 
 const LeaderboardsScreen = () => {
