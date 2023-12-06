@@ -14,11 +14,13 @@ import { ref, set, update, onValue, get, child } from "firebase/database";
 import { db } from "../../firebaseConfig";
 import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const MapScreen = () => {
   const [locationPermissionGranted, setLocationPermissionGranted] =
     useState(false);
   const [locations, setLocations] = useState([]);
+  const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
   const [usersVisitedLocations, setUsersVisitedLocations] = useState([]);
   const userCredentials = useAuth();
 
@@ -35,6 +37,18 @@ const MapScreen = () => {
       });
     });
   }, [userCredentials.uid]);
+
+  useEffect(() => {
+    const checkLogged = async () => {
+      const isFirstTimeUser = await AsyncStorage.getItem("isFirstTimeUser");
+      console.log(isFirstTimeUser);
+      if (!isFirstTimeUser) {
+        setIsFirstTimeUser(true);
+        AsyncStorage.setItem("isFirstTimeUser", "true");
+      }
+    };
+    checkLogged().catch(console.error);
+  }, []);
 
   async function getLocationPermission() {
     const granted = await Location.requestForegroundPermissionsAsync();
@@ -84,6 +98,7 @@ const MapScreen = () => {
   return (
     <SafeAreaView>
       <View>
+        {isFirstTimeUser ? <Text>Welcome to the app!</Text> : <Text>Welcome to thsdsade app!</Text>}
         <MapView
           style={{ width: "100%", height: "100%" }}
           initialRegion={{
