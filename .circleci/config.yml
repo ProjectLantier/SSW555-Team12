@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/node:14  # You can choose the Node.js version you need
+      - image: cimg/node:21.2.0  # You can choose the Node.js version you need
 
     working_directory: ~/SSW555-Team12  # Update the working directory to match the repository name
 
