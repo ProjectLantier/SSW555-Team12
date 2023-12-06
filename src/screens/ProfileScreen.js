@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from "react";
+import { React, useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -40,6 +40,13 @@ const ProfileScreen = ({ navigation }) => {
         } catch (error) {
           console.error(error);
         }
+        const users = ref(db, "users/");
+        onValue(users, (snapshot) => {
+          let data = snapshot.val();
+          data = Object.keys(data);
+
+          console.log("users: ", data);
+        });
       }
     };
 
@@ -97,7 +104,7 @@ const ProfileScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   profileInformationContainer: {
     flex: 1,
@@ -109,7 +116,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     justifyContent: "center",
-    color: "#788eec"
+    color: "#788eec",
   },
   profileInformation: {
     fontSize: 20,
@@ -147,21 +154,21 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     color: "#788eec",
     fontWeight: "bold",
-    marginTop: 5
+    marginTop: 5,
   },
   profileSectionArrow: {
     justifyContent: "center",
   },
   logoutText: {
     fontSize: 20,
-    color: "white"
+    color: "white",
   },
   logout: {
     marginTop: 280,
     padding: 20,
     backgroundColor: "#788eec",
     borderRadius: 10,
-    color: "#788eec"
+    color: "#788eec",
   },
 });
 
