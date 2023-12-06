@@ -40,13 +40,6 @@ const ProfileScreen = ({ navigation }) => {
         } catch (error) {
           console.error(error);
         }
-        const users = ref(db, "users/");
-        onValue(users, (snapshot) => {
-          let data = snapshot.val();
-          data = Object.keys(data);
-
-          console.log("users: ", data);
-        });
       }
     };
 
