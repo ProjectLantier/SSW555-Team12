@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useState, useEffect} from "react";
 import {
   Text,
   View,
@@ -8,10 +8,14 @@ import {
 } from "react-native";
 import Icon from "@expo/vector-icons/AntDesign";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
+import { ref, set, update, onValue, get, child } from "firebase/database";
+import { db } from "../../firebaseConfig";
 
 const ProfileScreen = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [totalPoints, setTotalPoints] = useState(0);
+
   const logout = async () => {
     try {
       await AsyncStorage.removeItem("isloggedIn");
@@ -23,15 +27,34 @@ const ProfileScreen = ({ navigation }) => {
 
   const userCredentials = useAuth();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (userCredentials) {
+        setEmail(userCredentials.email || "");
+
+        const userRef = ref(db, `users/${userCredentials.uid}`);
+        try {
+          const snapshot = await get(child(userRef, "points"));
+          const points = snapshot.val() || 0;
+          setTotalPoints(points);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [userCredentials]);
+
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.profileInformationContainer}>
         <Text style={styles.profileTitle}>Profile</Text>
         <Text style={styles.profileInformation}>
-          <Text style={styles.descriptor}>Email:</Text> {userCredentials.email}
+          <Text style={styles.descriptor}>Email:</Text> {email}
         </Text>
         <Text style={styles.profileInformation}>
-          <Text style={styles.descriptor}>Adventure Level: </Text>0
+          <Text style={styles.descriptor}>Adventure Level: {totalPoints}</Text>
         </Text>
       </View>
       <View style={styles.profileSectionsContainer}>
@@ -74,18 +97,19 @@ const ProfileScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    backgroundColor: "white"
   },
   profileInformationContainer: {
     flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    marginTop: 20,
-    marginLeft: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
   profileTitle: {
     fontSize: 36,
     fontWeight: "bold",
     marginBottom: 20,
+    justifyContent: "center",
+    color: "#788eec"
   },
   profileInformation: {
     fontSize: 20,
@@ -116,22 +140,28 @@ const styles = StyleSheet.create({
   },
   profileSectionTitle: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 28,
+    color: "#033dfc",
   },
   profileSectionDetails: {
     marginLeft: 8,
+    color: "#788eec",
+    fontWeight: "bold",
+    marginTop: 5
   },
   profileSectionArrow: {
     justifyContent: "center",
   },
   logoutText: {
     fontSize: 20,
+    color: "white"
   },
   logout: {
     marginTop: 280,
     padding: 20,
-    backgroundColor: "#ADD8E6",
+    backgroundColor: "#788eec",
     borderRadius: 10,
+    color: "#788eec"
   },
 });
 

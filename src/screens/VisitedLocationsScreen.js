@@ -34,6 +34,7 @@ const VisitedLocationsScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.header}>
+        <Button title="Back" onPress={() => navigation.goBack()} />
         <Text style={styles.heading}>Visited Locations</Text>
       </View>
       <ScrollView style={styles.ScrollView}>
@@ -51,26 +52,30 @@ const VisitedLocationsScreen = ({ navigation }) => {
               <Text style={styles.cardHeader}>{location.name}</Text>
               <Text style={styles.cardText}>{location.description}</Text>
             </TouchableOpacity>
+            
           ))
         ) : (
           <Text style={styles.noLocations}>No locations visited yet!</Text>
         )}
       </ScrollView>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Map")}>
+          <Text style={styles.buttonText}>Visit More Locations</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
-    flex: 0.5,
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    marginTop: 20,
-    marginLeft: 20,
+    marginBottom: 20,
   },
   heading: {
     fontSize: 36,
     fontWeight: "bold",
+    marginLeft: 50
+    
   },
   locationItem: {
     padding: 20,
@@ -78,7 +83,7 @@ const styles = StyleSheet.create({
   },
   ScrollView: {
     width: "100%",
-    marginTop: 20,
+    marginTop: 0,
   },
   card: {
     backgroundColor: "white",
@@ -110,6 +115,20 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
   },
+  button: {
+    marginTop: 20,
+    padding: 20,
+    backgroundColor: "#788eec",
+    borderRadius: 10,
+    color: "white",
+    alignItems: "center",
+    width: "60%",
+    marginLeft: 80
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 20,
+  }
 });
 
 export default VisitedLocationsScreen;
