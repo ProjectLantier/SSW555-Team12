@@ -66,7 +66,10 @@ const MapScreen = () => {
           )
         ) {
           updatedLocations.push({ ...location });
-          Alert.alert('Visited!', `${location.name} added to visited locations!`);
+          Alert.alert(
+            "Visited!",
+            `${location.name} added to visited locations!`
+          );
         }
 
         update(userRef, { visitedLocations: updatedLocations });
@@ -83,62 +86,68 @@ const MapScreen = () => {
 
   return (
     <SafeAreaView>
-      <View>
-        <MapView
-          style={{ width: "100%", height: "100%" }}
-          initialRegion={{
-            latitude: 40.744,
-            longitude: -74.0324,
-            latitudeDelta: 0.04,
-            longitudeDelta: 0.02,
-          }}
-          onMapReady={getLocationPermission}
-          showsUserLocation={locationPermissionGranted}
-        >
-          {locations.map((significantLocation) => (
-            <Marker
-              key={significantLocation.id}
-              coordinate={{
-                latitude: significantLocation.latitude,
-                longitude: significantLocation.longitude,
-              }}
-              title={significantLocation.name}
-              description={significantLocation.description}
-            >
-              <Image
-                source={{
-                  uri: "https://cdn-icons-png.flaticon.com/512/4284/4284088.png",
+      {userCredentials ? (
+        <View>
+          <MapView
+            style={{ width: "100%", height: "100%" }}
+            initialRegion={{
+              latitude: 40.744,
+              longitude: -74.0324,
+              latitudeDelta: 0.04,
+              longitudeDelta: 0.02,
+            }}
+            onMapReady={getLocationPermission}
+            showsUserLocation={locationPermissionGranted}
+          >
+            {locations.map((significantLocation) => (
+              <Marker
+                key={significantLocation.id}
+                coordinate={{
+                  latitude: significantLocation.latitude,
+                  longitude: significantLocation.longitude,
                 }}
-                style={{ width: 30, height: 30 }}
-              />
-              <Callout
-                style={{ width: 100 }}
-                onPress={() => toggleVisitedState(significantLocation)}
+                title={significantLocation.name}
+                description={significantLocation.description}
               >
-                <View>
-                  <Text style={styles.markerName}>
-                    {significantLocation.name}
-                  </Text>
-                  <Text style={styles.markerDescription}>
-                    {significantLocation.description}
-                  </Text>
-                  <Text style={styles.markerInformation}>Click to Visit!</Text>
-                  <Button
-                    title={
-                      usersVisitedLocations.some(
-                        (visitedLocation) =>
-                          visitedLocation.id === significantLocation.id
-                      )
-                        ? "Visited!"
-                        : "Visit"
-                    }
-                  />
-                </View>
-              </Callout>
-            </Marker>
-          ))}
-        </MapView>
-      </View>
+                <Image
+                  source={{
+                    uri: "https://cdn-icons-png.flaticon.com/512/4284/4284088.png",
+                  }}
+                  style={{ width: 30, height: 30 }}
+                />
+                <Callout
+                  style={{ width: 100 }}
+                  onPress={() => toggleVisitedState(significantLocation)}
+                >
+                  <View>
+                    <Text style={styles.markerName}>
+                      {significantLocation.name}
+                    </Text>
+                    <Text style={styles.markerDescription}>
+                      {significantLocation.description}
+                    </Text>
+                    <Text style={styles.markerInformation}>
+                      Click to Visit!
+                    </Text>
+                    <Button
+                      title={
+                        usersVisitedLocations.some(
+                          (visitedLocation) =>
+                            visitedLocation.id === significantLocation.id
+                        )
+                          ? "Visited!"
+                          : "Visit"
+                      }
+                    />
+                  </View>
+                </Callout>
+              </Marker>
+            ))}
+          </MapView>
+        </View>
+      ) : (
+        <Text>Loading...</Text>
+      )}
     </SafeAreaView>
   );
 };
