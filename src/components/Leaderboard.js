@@ -12,8 +12,8 @@ const Leaderboard = ({ users }) => {
       {users.map((user, index) => (
         <View style={styles.user} key={user.id}>
           <Text>{index + 1}</Text>
-          <Text>{user.name}</Text>
-          <Text>{user.adventureLevel}</Text>
+          <Text>{user.email}</Text>
+          <Text>{user.points}</Text>
         </View>
       ))}
     </View>
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     height: 700,
     backgroundColor: "#ffffff",
     borderRadius: 10,
-    padding: 16,
+    padding: 12,
     shadowColor: "#000000",
     shadowOffset: {
       width: 0,

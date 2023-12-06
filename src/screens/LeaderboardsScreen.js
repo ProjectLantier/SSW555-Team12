@@ -1,25 +1,32 @@
-import React from "react";
-import { SafeAreaView, View, Text } from "react-native";
-import { StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, View, Text, StyleSheet } from "react-native";
+import { ref, onValue, query, orderByChild } from "firebase/database";
+import { db } from "../../firebaseConfig";
 import Leaderboard from "../components/Leaderboard";
 
 const LeaderboardsScreen = () => {
-  const users = [
-    { id: 1, name: "Eric", adventureLevel: 3 },
-    { id: 2, name: "Andy", adventureLevel: 7 },
-    { id: 3, name: "Eshan", adventureLevel: 12 },
-    { id: 4, name: "Nicholas", adventureLevel: 4 },
-    { id: 5, name: "Rishabh", adventureLevel: 15 },
-    { id: 6, name: "Edward", adventureLevel: 3 },
-    { id: 7, name: "Andrew", adventureLevel: 9 },
-  ];
+  const [users, setUsers] = useState([]);
 
-  users.sort((user1, user2) => {
-    if (user1.adventureLevel === user2.adventureLevel) {
-      return user1.name < user2.name ? -1 : 1;
-    }
-    return user2.adventureLevel - user1.adventureLevel;
-  });
+  useEffect(() => {
+    const usersQuery = query(ref(db, 'users'), orderByChild('points'));
+
+    const fetchUsers = () => {
+      onValue(usersQuery, (snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const usersArray = Object.values(data);
+          console.log("Original data:", data);
+          console.log("Users array before sorting:", usersArray);
+
+          usersArray.sort((a, b) => (b.points || 0) - (a.points || 0));
+          console.log("Users array after sorting:", usersArray);
+          setUsers(usersArray);
+        }
+      });
+    };
+
+    fetchUsers();
+  }, []);
 
   return (
     <SafeAreaView>
