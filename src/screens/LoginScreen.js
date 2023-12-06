@@ -25,7 +25,17 @@ const LoginScreen = ({ navigation }) => {
         worked = true;
         const user = userCredential.user;
         console.log("User signed in: ", user);
-        navigation.navigate("Tutorial");
+        // get if first time
+        AsyncStorage.getItem("firstTime").then((firstTime) => {
+          console.log(firstTime)
+          if (!firstTime || firstTime == "false") {
+            AsyncStorage.setItem("firstTime", "true");
+            navigation.navigate("Tutorial");
+          }
+          else {
+            navigation.navigate("HomeScreen");
+          }
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
