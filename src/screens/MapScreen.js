@@ -17,9 +17,10 @@ import { useAuth } from "../context/AuthContext";
 
 const MapScreen = () => {
   const [locationPermissionGranted, setLocationPermissionGranted] =
-    useState(false);
+    useState(null);
   const [locations, setLocations] = useState([]);
   const [usersVisitedLocations, setUsersVisitedLocations] = useState([]);
+  const [mapReady, setMapReady] = useState(false);
   const userCredentials = useAuth();
 
   useEffect(() => {
@@ -36,14 +37,26 @@ const MapScreen = () => {
     });
   }, [userCredentials.uid]);
 
-  async function getLocationPermission() {
-    const granted = await Location.requestForegroundPermissionsAsync();
-    if (granted) {
+  useEffect(() => {
+    const checkLocationPermission = async () => {
+      const granted = await Location.requestForegroundPermissionsAsync();
       setLocationPermissionGranted(true);
-    } else {
-      setLocationPermissionGranted(false);
-    }
-  }
+      setMapReady(true);
+      if (!granted) {
+        setLocationPermissionGranted(false);
+        Alert.alert(
+          "Location Permission Required",
+          "Please enable location services to use this feature.",
+          [{ text: "OK", onPress: () => {} }]
+        );
+      }
+    };
+    checkLocationPermission();
+  }, []);
+
+  const handleMapready = () => {
+    setMapReady(true);
+  };
 
   function toggleVisitedState(location) {
     // setLocations((prevLocations) =>
@@ -86,7 +99,7 @@ const MapScreen = () => {
 
   return (
     <SafeAreaView>
-      {userCredentials ? (
+      {locationPermissionGranted && mapReady && (
         <View>
           <MapView
             style={{ width: "100%", height: "100%" }}
@@ -96,7 +109,7 @@ const MapScreen = () => {
               latitudeDelta: 0.04,
               longitudeDelta: 0.02,
             }}
-            onMapReady={getLocationPermission}
+            onMapReady={handleMapready}
             showsUserLocation={locationPermissionGranted}
           >
             {locations.map((significantLocation) => (
@@ -145,8 +158,6 @@ const MapScreen = () => {
             ))}
           </MapView>
         </View>
-      ) : (
-        <Text>Loading...</Text>
       )}
     </SafeAreaView>
   );

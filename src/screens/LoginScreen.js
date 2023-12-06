@@ -1,14 +1,20 @@
 import React from "react";
 import { useState } from "react";
-import { Alert, Button, Text, TextInput, SafeAreaView } from "react-native";
+import { Alert, Button, Text, TextInput, View, TouchableOpacity} from "react-native";
 import { app } from "../../firebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import loginstyles from "./loginstyles";
+import RegistrationStyle from "../styles/RegistrationStyle";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const MyButton = ({ title, onPress, buttonStyle, textStyle }) => (
+    <TouchableOpacity style={buttonStyle} onPress={onPress}>
+      <Text style={textStyle}>{title}</Text>
+    </TouchableOpacity>
+  );
 
   const loginFunction = async () => {
     let worked = false;
@@ -19,13 +25,14 @@ const LoginScreen = ({ navigation }) => {
         worked = true;
         const user = userCredential.user;
         console.log("User signed in: ", user);
-        navigation.navigate("HomeScreen");
+        navigation.navigate("Tutorial");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        const userErrorMessage = "Invalid credentials."
         console.error(`${errorCode}: `, errorMessage);
-        alert("Sign in failed: " + error.message);
+        alert("Sign in failed: " + userErrorMessage);
       });
     if (worked) {
       try {
@@ -37,28 +44,33 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={loginstyles.container}>
-      <Text style={loginstyles.title}>Login:</Text>
+    <View style={RegistrationStyle.container}>
+      <Text style={RegistrationStyle.title}>Enjoy your new adventure!</Text>
       <TextInput
         placeholder="Enter Email"
         value={email}
         onChangeText={(x) => setUsername(x)}
-        style={loginstyles.input}
+        style={RegistrationStyle.input}
       />
       <TextInput
         placeholder="Enter Password"
         secureTextEntry={true}
         value={password}
         onChangeText={(x) => setPassword(x)}
-        style={loginstyles.input}
+        style={RegistrationStyle.input}
       />
-      <Button title="Log in" onPress={loginFunction} />
-      <Text>Don't have an account?</Text>
+      <MyButton 
+        title="Log in" 
+        onPress={loginFunction} 
+        buttonStyle={RegistrationStyle.button}
+        textStyle={RegistrationStyle.buttonTitle}
+      />
+      <Text style={{marginBottom: 20}}>Don't have an account?</Text>
       <Button
         title="Sign up"
         onPress={() => navigation.navigate("RegisterScreen")}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

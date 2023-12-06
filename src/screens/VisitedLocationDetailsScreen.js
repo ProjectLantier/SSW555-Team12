@@ -1,10 +1,13 @@
 import React from "react";
-import { SafeAreaView, View, Text, StyleSheet } from "react-native";
+import { SafeAreaView, View, Text, StyleSheet, Button } from "react-native";
 
-const VisitedLocationDetailsScreen = ({ route }) => {
+const VisitedLocationDetailsScreen = ({ route, navigation }) => {
   const { location } = route.params;
   return (
     <SafeAreaView style={styles.wrapper}>
+      <View style={styles.backButtonContainer}>
+        <Button title="Back" onPress={() => navigation.goBack()} />
+      </View>
       <View style={styles.container}>
         <Text style={styles.heading}>{location.name}</Text>
         <Text style={styles.locationDetails}>{location.description}</Text>
@@ -31,12 +34,19 @@ const VisitedLocationDetailsScreen = ({ route }) => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    backgroundColor: "white"
+  },
+  backButtonContainer: {
+    position: 'absolute',
+    top: 30,
+    left: 0,
+    padding: 10,
   },
   container: {
     flex: 0.5,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 26,
     flexDirection: "column",
   },
   heading: {
@@ -50,6 +60,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     flexDirection: "column",
     alignItems: "center",
+    margin: 30
   },
   locationDetails: {
     fontSize: 20,
