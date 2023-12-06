@@ -10,10 +10,10 @@ const Leaderboard = ({ users }) => {
         <Text>Adventure Level</Text>
       </View>
       {users.map((user, index) => (
-        <View style={styles.user} key={user.id}>
+        <View style={styles.user} key={user.email}>
           <Text>{index + 1}</Text>
-          <Text>{user.name}</Text>
-          <Text>{user.adventureLevel}</Text>
+          <Text>{user.email}</Text>
+          <Text>{user.points}</Text>
         </View>
       ))}
     </View>

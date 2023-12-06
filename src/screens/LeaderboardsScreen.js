@@ -7,7 +7,13 @@ import { db } from "../../firebaseConfig";
 import { useEffect } from "react";
 
 const LeaderboardsScreen = () => {
-  const users = query(ref(db, 'users'), orderByChild(`points`));
+  var users_arr = []
+  const users = ref(db, 'users/');
+    onValue(users, (snapshot) => {
+      const data = snapshot.val();
+      console.log("users: ", data);
+      users_arr.push(data);
+    });
   useEffect(() => {
     console.log(users)
   }, []);
@@ -22,14 +28,11 @@ const LeaderboardsScreen = () => {
     { id: 6, name: "Edward", adventureLevel: 3 },
     { id: 7, name: "Andrew", adventureLevel: 9 },
   ];
+  */
 
   users.sort((user1, user2) => {
-    if (user1.adventureLevel === user2.adventureLevel) {
-      return user1.name < user2.name ? -1 : 1;
-    }
-    return user2.adventureLevel - user1.adventureLevel;
+    return user2.points - user1.points;
   });
-  */
 
   return (
     <SafeAreaView>
