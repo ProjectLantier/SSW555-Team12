@@ -14,6 +14,7 @@ import VisitedLocationDetailsScreen from "./src/screens/VisitedLocationDetailsSc
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect } from "react";
 import { AuthProvider } from "./src/context/AuthContext";
+import Tutorial from "./src/screens/Tutorial";
 
 const Stack = createStackNavigator();
 
@@ -46,10 +47,11 @@ const App = () => {
         <AuthProvider>
           <Stack.Navigator
             screenOptions={{ headerShown: false }}
-            initialRouteName={isloggedIn ? "HomeScreen" : "RegisterScreen"}
+            initialRouteName={isloggedIn ? "Tutorial" : "RegisterScreen"}
           >
             <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
+            <Stack.Screen name="Tutorial" component={Tutorial}/>
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen
               name="BadgeCollectionScreen"
